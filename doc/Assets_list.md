@@ -5,10 +5,14 @@ This is a list of interesting assets found on the web, which might come in hand 
 ## Visual ##
 
 * Terrain
+  * [2D Tilezone Lite](https://assetstore.unity.com/packages/tools/sprite-management/2d-tilezone-lite-69963)
+  * [2D Game Kit](https://assetstore.unity.com/packages/essentials/tutorial-projects/2d-game-kit-107098)
 * Character / Enemies
   * [Space Man](https://assetstore.unity.com/packages/3d/characters/humanoids/free-animated-space-man-61548)
 * Weapon / Tools
 * Backround / foreground
+  * [Painted Medieval](https://assetstore.unity.com/packages/2d/environments/painted-hq-2d-forest-medieval-background-97738)
+  * [Parallax](https://assetstore.unity.com/packages/tools/particles-effects/script-for-create-2d-background-with-parallax-97129)
 * Space
   * [Space Skybox](https://assetstore.unity.com/packages/2d/textures-materials/sky/10-space-skyboxes-105665)
   * [Vast Outer Space](https://assetstore.unity.com/packages/3d/environments/sci-fi/vast-outer-space-38913)
