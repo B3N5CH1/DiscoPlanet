@@ -7,9 +7,15 @@ public class SettingsMenu : MonoBehaviour {
 
     public AudioMixer audioMixer;
 
-    // Sets the volume of an AudioMixer
-	public void setVolume(float volume)
+    // Sets the volume of the BackGround
+	public void setVolumeBG(float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        audioMixer.SetFloat("volumeBG", volume);
+    }
+
+    // Sets the volume of the SFX effects
+    public void setVolumeSFX(float volume)
+    {
+        audioMixer.SetFloat("volumeSFX", volume);
     }
 }
