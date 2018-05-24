@@ -9,10 +9,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
+    public Animator animator;
+
+    private int levelToLoad;
+
     //Start the game with the next scene
-	public void PlayGame()
+    public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     //Quit the game
@@ -22,9 +26,22 @@ public class MainMenu : MonoBehaviour {
         Application.Quit();
     }
 
-    //Quit the game
+    //Go Back one scene
     public void Back()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        FadeToLevel(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    // Start the Fade_Out animation and sets the next level to load
+    public void FadeToLevel(int index)
+    {
+        animator.SetTrigger("FadeOut");
+        levelToLoad = index;
+    }
+
+    // Load the given level when the animation is over
+    public void OnFadeComplete()
+    {
+        SceneManager.LoadScene(levelToLoad);
     }
 }

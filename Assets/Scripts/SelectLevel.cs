@@ -1,20 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EnterMainScene : MonoBehaviour {
+public class SelectLevel : MonoBehaviour {
+
 
     public Animator animator;
 
     private int levelToLoad;
 
-    // Update is called once per frame
-    void Update () {
-        
-        if (Input.anyKey)
-        {
-            FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-	}
+    //Go Back one scene
+    public void Back()
+    {
+        FadeToLevel(SceneManager.GetActiveScene().buildIndex - 1);
+    }
 
     // Start the Fade_Out animation and sets the next level to load
     public void FadeToLevel(int index)

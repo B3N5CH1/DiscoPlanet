@@ -14,6 +14,7 @@ This is a list of interesting assets found on the web, which might come in hand 
   * [Painted Medieval](https://assetstore.unity.com/packages/2d/environments/painted-hq-2d-forest-medieval-background-97738)
   * [Parallax](https://assetstore.unity.com/packages/tools/particles-effects/script-for-create-2d-background-with-parallax-97129)
 * Space
+  * [Free planet pack])https://assetstore.unity.com/packages/2d/textures-materials/planets-with-space-background-in-flat-style-95983)
   * [Tiny planets] (https://assetstore.unity.com/packages/2d/textures-materials/tiny-planets-6577)
   * [Space Skybox](https://assetstore.unity.com/packages/2d/textures-materials/sky/10-space-skyboxes-105665)
   * [Vast Outer Space](https://assetstore.unity.com/packages/3d/environments/sci-fi/vast-outer-space-38913)
