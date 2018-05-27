@@ -38,3 +38,6 @@ sysinfo.txt
 *.unitypackage
 Assets/Plugins.meta
 ProjectSettings/EditorSettings.asset
+
+thumbs.db
+thumbs.db.meta
