@@ -2,13 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SelectLevel : MonoBehaviour {
 
 
     public Animator animator;
 
+    public Button[] levelButtons;
+
     private int levelToLoad;
+
+    private void Start()
+    {
+
+        int level1Completed = PlayerPrefs.GetInt("level1Completed", 0);
+        int level2Completed = PlayerPrefs.GetInt("level2Completed", 0);
+
+        if (level1Completed == 1)
+        {
+            levelButtons[1].interactable = true;
+        }
+        else
+        {
+            levelButtons[1].interactable = false;
+        }
+    }
 
     //Go Back one scene
     public void Back()

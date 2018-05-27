@@ -8,6 +8,7 @@ This is a list of interesting assets found on the web, which might come in hand 
   * [2D Tilezone Lite](https://assetstore.unity.com/packages/tools/sprite-management/2d-tilezone-lite-69963)
   * [2D Game Kit](https://assetstore.unity.com/packages/essentials/tutorial-projects/2d-game-kit-107098)
 * Character / Enemies
+  * [2D Eddy](https://assetstore.unity.com/packages/2d/characters/2d-eddy-112501)
   * [Space Man](https://assetstore.unity.com/packages/3d/characters/humanoids/free-animated-space-man-61548)
 * Weapon / Tools
 * Backround / foreground

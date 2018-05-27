@@ -17,8 +17,8 @@ public class SetSliders : MonoBehaviour {
         float valBG;
         float valSFX;
 
-        audioMixer.GetFloat("volumeBG", out valBG);
-        audioMixer.GetFloat("volumeSFX", out valSFX);
+        valBG = PlayerPrefs.GetFloat("volumeBG", 0);
+        valSFX = PlayerPrefs.GetFloat("volumeSFX", 0);
 
         sliderBG.value = valBG;
         sliderSFX.value = valSFX;

@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class EnterMainScene : MonoBehaviour {
 
     public Animator animator;
+    public AudioMixer audioMixer;
 
     private int levelToLoad;
 
+    void Start()
+    {
+
+        audioMixer.SetFloat("volumeBG", PlayerPrefs.GetFloat("volumeBG", 0));
+        audioMixer.SetFloat("volumeSFX", PlayerPrefs.GetFloat("volumeSFX", 0));
+    }
     // Update is called once per frame
     void Update () {
         

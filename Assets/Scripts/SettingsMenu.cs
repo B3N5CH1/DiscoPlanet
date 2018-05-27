@@ -11,11 +11,13 @@ public class SettingsMenu : MonoBehaviour {
 	public void setVolumeBG(float volume)
     {
         audioMixer.SetFloat("volumeBG", volume);
+        PlayerPrefs.SetFloat("volumeBG", volume);
     }
 
     // Sets the volume of the SFX effects
     public void setVolumeSFX(float volume)
     {
         audioMixer.SetFloat("volumeSFX", volume);
+        PlayerPrefs.SetFloat("volumeSFX", volume);
     }
 }

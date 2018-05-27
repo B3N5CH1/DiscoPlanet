@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 /*
  * This script handle the behaviour of the mainMenu.
@@ -13,10 +14,26 @@ public class MainMenu : MonoBehaviour {
 
     private int levelToLoad;
 
-    //Start the game with the next scene
+    // Go to levelSelection with previous progression
     public void PlayGame()
     {
         FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    // Go to levelSelection while deleting previous progression
+    public void NewGame()
+    {
+        bool destroy = EditorUtility.DisplayDialog("Info", "This will delete any previous progression.", "Continue", "Cancel");
+        
+        if (destroy)
+        {
+
+            PlayerPrefs.DeleteKey("level1Completed");
+            PlayerPrefs.DeleteKey("level2Completed");
+
+            FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        
     }
 
     //Quit the game

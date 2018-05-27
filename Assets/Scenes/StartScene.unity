@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 28175471}
+  audioMixer: {fileID: 24100000, guid: 2721204882bc1ff4b82992bacb0bf3bd, type: 2}
 --- !u!1 &272492194
 GameObject:
   m_ObjectHideFlags: 0
