@@ -9,6 +9,9 @@ This is a list of interesting assets found on the web, which might come in hand 
   * [2D Game Kit](https://assetstore.unity.com/packages/essentials/tutorial-projects/2d-game-kit-107098)
 * Character / Enemies
   * [2D Eddy](https://assetstore.unity.com/packages/2d/characters/2d-eddy-112501)
+  * [Sunny Land](https://assetstore.unity.com/packages/2d/characters/sunny-land-103349)
+  * [Free Pixel Mob](https://assetstore.unity.com/packages/2d/characters/free-pixel-mob-113577)
+  * [Dragon Warrior(Free)](https://assetstore.unity.com/packages/2d/characters/dragon-warrior-free-93896)
   * [Space Man](https://assetstore.unity.com/packages/3d/characters/humanoids/free-animated-space-man-61548)
 * Weapon / Tools
 * Backround / foreground
