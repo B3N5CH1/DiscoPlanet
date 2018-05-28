@@ -46,7 +46,11 @@ public class AttackState : State<AI>
             _owner.stateMachine.changeState(ChaseState.Instance);
             
         }
-        else if (!_owner.melee() && !_owner.detect())
+        else if (_owner.melee() && _owner.detect())
+        {
+            _owner.stateMachine.changeState(AttackState.Instance);
+        }
+        else
         {
             _owner.stateMachine.changeState(IdleState.Instance);
         }

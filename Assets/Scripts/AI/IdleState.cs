@@ -43,7 +43,11 @@ public class IdleState : State<AI>
         {
             _owner.stateMachine.changeState(ChaseState.Instance);
         }
-      
-       
+        if (_owner.detect() && _owner.melee())
+        {
+            _owner.stateMachine.changeState(AttackState.Instance);
+        }
+
+
     }
 }

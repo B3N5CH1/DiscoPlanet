@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Controller2D : MonoBehaviour {
 
+    public LayerMask collisionMask;
+
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
@@ -15,23 +17,82 @@ public class Controller2D : MonoBehaviour {
 
     BoxCollider2D collider;
     RaycastOrigins raycastOrigins;
+    public CollisionInfo collisions;
 
     private void Start()
     {
         collider = GetComponent<BoxCollider2D>();
+        CalculateRaySpacing();
     }
 
-    // Call this method every frame, it update the raycast position and calculate the spacing
-    private void Update()
+    // Handle the vertical Collisions
+    private void VerticalCollision(ref Vector3 velocity)
     {
-        UpdateRaycastOrigins();
-        CalculateRaySpacing();
+
+        float directionY = Mathf.Sign(velocity.y);
+        float rayLength = Mathf.Abs(velocity.y) + skinWidth; 
 
         // Draw the raycast going at the bottom of our object
         for (int i = 0; i < verticalRayCount; i++)
         {
-            Debug.DrawRay(raycastOrigins.bottomLeft + Vector2.right * verticalRaySpacing * i, Vector2.up * -2, Color.red);
+            Vector2 rayOrigin = (directionY == -1)?raycastOrigins.bottomLeft:raycastOrigins.topLeft;
+            rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
+
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength,Color.red);
+
+            // If the player hits an obstacle blocks that way and notice where the collision has occured
+            if (hit)
+            {
+                velocity.y = (hit.distance-skinWidth) * directionY;
+                rayLength = hit.distance;
+
+                collisions.bellow = directionY == -1;
+                collisions.above = directionY == 1;
+            }
         }
+    }
+
+    // Handle the Horizontal Collisions
+    private void HorizontalCollision(ref Vector3 velocity)
+    {
+
+        float directionX = Mathf.Sign(velocity.x);
+        float rayLength = Mathf.Abs(velocity.x) + skinWidth;
+
+        // Draw the raycast going at the bottom of our object
+        for (int i = 0; i < horizontalRayCount; i++)
+        {
+            Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
+            rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+
+            // If the player hits an obstacle blocks that way and notice where the collision has occured
+            if (hit)
+            {
+                velocity.x = (hit.distance - skinWidth) * directionX;
+                rayLength = hit.distance;
+
+                collisions.left = directionX == -1;
+                collisions.right = directionX == 1;
+            }
+        }
+    }
+
+    public void Move(Vector3 velocity)
+    {
+
+        UpdateRaycastOrigins();
+        collisions.Reset();
+
+        if (velocity.x != 0) HorizontalCollision(ref velocity);
+        if (velocity.y != 0) VerticalCollision(ref velocity);
+
+        transform.Translate(velocity);
     }
 
     // Update the position of the differents raycast of our object
@@ -66,4 +127,15 @@ public class Controller2D : MonoBehaviour {
         public Vector2 bottomLeft, bottomRight;
     }
 
+    public struct CollisionInfo
+    {
+        public bool above, bellow;
+        public bool left, right;
+
+        public void Reset()
+        {
+            above = bellow = false;
+            left = right = false;
+        }
+    }
 }
