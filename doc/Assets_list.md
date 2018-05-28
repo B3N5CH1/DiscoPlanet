@@ -17,6 +17,7 @@ This is a list of interesting assets found on the web, which might come in hand 
 * Backround / foreground
   * [Painted Medieval](https://assetstore.unity.com/packages/2d/environments/painted-hq-2d-forest-medieval-background-97738)
   * [Parallax](https://assetstore.unity.com/packages/tools/particles-effects/script-for-create-2d-background-with-parallax-97129)
+  * [Grass/Sky](https://www.shutterstock.com/image-vector/pixel-art-game-background-ground-grass-544265998)
 * Space
   * [Free planet pack](https://assetstore.unity.com/packages/2d/textures-materials/planets-with-space-background-in-flat-style-95983)
   * [Tiny planets](https://assetstore.unity.com/packages/2d/textures-materials/tiny-planets-6577)
