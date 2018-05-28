@@ -28,21 +28,32 @@ public class MainMenu : MonoBehaviour {
                 FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
-
-        FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        
+        else
+        {
+            FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        
     }
 
     // Go to levelSelection while deleting previous progression
     public void NewGame()
     {
-        bool destroy = EditorUtility.DisplayDialog("Info", "This will delete any previous progression.", "Continue", "Cancel");
-        
-        if (destroy)
+        if (PlayerPrefs.GetInt("progressionStarted", 0) == 1)
         {
+            bool destroy = EditorUtility.DisplayDialog("Info", "This will delete any previous progression.", "Continue", "Cancel");
 
-            PlayerPrefs.DeleteKey("level1Completed");
-            PlayerPrefs.DeleteKey("level2Completed");
+            if (destroy)
+            {
 
+                PlayerPrefs.DeleteKey("level1Completed");
+                PlayerPrefs.DeleteKey("level2Completed");
+
+                FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+        else
+        {
             FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
         }
         
