@@ -17,6 +17,18 @@ public class MainMenu : MonoBehaviour {
     // Go to levelSelection with previous progression
     public void PlayGame()
     {
+
+        // There is no data saved
+        if (PlayerPrefs.GetInt("progressionStarted", 0) == 0)
+        {
+            bool destroy = EditorUtility.DisplayDialog("Info", "As there is no data saved, you will start a new game !", "Start", "Cancel");
+
+            if (destroy)
+            {
+                FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+
         FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
