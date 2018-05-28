@@ -39,10 +39,12 @@ public class MainMenu : MonoBehaviour {
     // Go to levelSelection while deleting previous progression
     public void NewGame()
     {
+           
+        // Check if the player already started the game, if yes display a message to informe you him that this will erase his last progression
         if (PlayerPrefs.GetInt("progressionStarted", 0) == 1)
         {
             bool destroy = EditorUtility.DisplayDialog("Info", "This will delete any previous progression.", "Continue", "Cancel");
-
+                // If the player confirm his choice, delete the stored data
             if (destroy)
             {
 

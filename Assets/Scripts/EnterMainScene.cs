@@ -12,6 +12,7 @@ public class EnterMainScene : MonoBehaviour {
     void Start()
     {
 
+        // Sets the volume with the stored settings data
         audioMixer.SetFloat("volumeBG", PlayerPrefs.GetFloat("volumeBG", 0));
         audioMixer.SetFloat("volumeSFX", PlayerPrefs.GetFloat("volumeSFX", 0));
     }

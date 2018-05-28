@@ -13,8 +13,10 @@ public class LevelBonus : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        // Check for any input key pressed
         if (Input.anyKey)
         {
+            // Delete the current progression and fade to MainMenu
             PlayerPrefs.DeleteKey("level1Completed");
             PlayerPrefs.DeleteKey("level2Completed");
             PlayerPrefs.DeleteKey("progressionStarted");
