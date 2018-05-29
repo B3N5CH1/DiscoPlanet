@@ -66,5 +66,9 @@ public class Player : MonoBehaviour {
     public void dealDMG(int damage)
     {
         health -= damage;
+        if (health == 0)
+        {
+
+        }
     }
 }

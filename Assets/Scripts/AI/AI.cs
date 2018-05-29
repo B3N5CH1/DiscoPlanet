@@ -19,8 +19,7 @@ public class AI : MonoBehaviour {
     public float sightRange = 10;
     public int damage = 2;
     public float meleeRange = 2;
-    public float accelerationTime = .1f;
-    public float gravity = -50;
+    public float gravity = -100;
 
     public StateMachine<AI> stateMachine { get; set; }
 
@@ -56,7 +55,7 @@ public class AI : MonoBehaviour {
     public bool detect()
     {
 
-        return getDistance()< sightRange;
+        return getDistance() <= sightRange;
     }
 
     private float getDistance()
@@ -66,21 +65,30 @@ public class AI : MonoBehaviour {
 
     public bool melee()
     {
-        return getDistance()<meleeRange;
+        return getDistance() <= meleeRange;
+        //return getDistance() < meleeRange;
     }
 
     public void chase()
     {
-        
-        //float targetVelocityX =  movespeed;
-        //velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, accelerationTime);
-        //velocity.y += gravity * Time.deltaTime;
-        _controller.Move(velocity * Time.deltaTime);
+        if (detect())
+        {
+            transform.position += transform.forward * movespeed * Time.deltaTime;
+        }
+        //velocity.y = gravity * Time.deltaTime;
+       // _controller.Move(velocity * Time.deltaTime);
     }
 
     private void Update()
     {
 
-        stateMachine.Update();
+        transform.LookAt(player.transform);
+
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        velocity.x = input.x * movespeed;
+        velocity.y = gravity * Time.deltaTime;
+        chase();
+        //stateMachine.Update();
     }
 }

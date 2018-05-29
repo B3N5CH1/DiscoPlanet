@@ -10,7 +10,7 @@ public class AIController2D : MonoBehaviour
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
-    public LayerMask collisionMaske;
+    public LayerMask collisionMask;
 
     float horizontalRaySpacing;
     float verticalRaySpacing;
@@ -36,13 +36,14 @@ public class AIController2D : MonoBehaviour
             Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
 
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaske);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
+           
             if (hit)
             {
-                velocity.y = (hit.distance - skinWidth)* directionY;
-                rayLength = hit.distance;
-                /*velocity.y = (hit.distance - skinWidth) * directionY;
+                
+                velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
 
                 if (collisions.climbingSlope)
@@ -51,7 +52,31 @@ public class AIController2D : MonoBehaviour
                 }
 
                 collisions.bellow = directionY == -1;
-                collisions.above = directionY == 1;*/
+                collisions.above = directionY == 1;
+            }
+        }
+    }
+
+    void HorizontalCollision(ref Vector3 velocity)
+    {
+        float directionX = Mathf.Sign(velocity.x);
+        float rayLength = Mathf.Abs(velocity.x) + skinWidth;
+
+        for (int i = 0; i < horizontalRayCount; i++)
+        {
+
+            Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
+            rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
+
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+
+            if (hit)
+            {
+
+                velocity.x = (hit.distance - skinWidth) * directionX;
+                rayLength = hit.distance;
             }
         }
     }
@@ -60,7 +85,8 @@ public class AIController2D : MonoBehaviour
     {
         UpdateRaycastOrigins();
 
-        VerticalCollision(ref velocity);
+        if (velocity.y != 0) VerticalCollision(ref velocity);
+        if (velocity.x != 0) HorizontalCollision(ref velocity);
 
         transform.Translate(velocity);
     }
