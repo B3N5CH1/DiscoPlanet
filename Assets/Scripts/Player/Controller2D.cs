@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class Controller2D : MonoBehaviour {
 
-    public LayerMask collisionMask;
+    public LayerMask collisionMask, collisionMaskCP;
 
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
 
+    float maxClimbAngle = 50;
     float horizontalRaySpacing;
     float verticalRaySpacing;
 
@@ -51,6 +52,14 @@ public class Controller2D : MonoBehaviour {
                 collisions.bellow = directionY == -1;
                 collisions.above = directionY == 1;
             }
+
+            // Collision with cp mask
+            RaycastHit2D hitCP = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCP);
+
+            if (hitCP)
+            {
+                print("HIT CP");
+            }
         }
     }
 
@@ -74,15 +83,46 @@ public class Controller2D : MonoBehaviour {
             // If the player hits an obstacle blocks that way and notice where the collision has occured
             if (hit)
             {
-                velocity.x = (hit.distance - skinWidth) * directionX;
-                rayLength = hit.distance;
+                //  Gets the angle between the normal of the hit vector and the vector up
+                float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-                collisions.left = directionX == -1;
-                collisions.right = directionX == 1;
+                if (i == 0 && slopeAngle <= maxClimbAngle)
+                {
+                    ClimbSlope(ref velocity, slopeAngle);
+                }
+
+                if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
+                {
+                    velocity.x = (hit.distance - skinWidth) * directionX;
+                    rayLength = hit.distance;
+
+                    collisions.left = directionX == -1;
+                    collisions.right = directionX == 1;
+                }
             }
         }
     }
 
+    void ClimbSlope(ref Vector3 velocity, float slopeAngle)
+    {
+
+        // Trigonometry :
+        //              y = moveDistance*sin(slopeAngle)
+        //              x = moveDistance*cos(slopeAngle)
+        float moveDistance = Mathf.Abs(velocity.x);
+        float climbVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
+
+        if (velocity.y <= climbVelocityY)
+        {
+            velocity.y = climbVelocityY;
+            velocity.y = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(velocity.x);
+            collisions.bellow = true;
+            collisions.climbingSlope = true;
+            collisions.slopeAngle = slopeAngle;
+        }
+    }
+
+    // Move the player
     public void Move(Vector3 velocity)
     {
 
@@ -131,11 +171,17 @@ public class Controller2D : MonoBehaviour {
     {
         public bool above, bellow;
         public bool left, right;
+        public bool climbingSlope;
+        public float slopeAngle, slopeAngleOld;
 
         public void Reset()
         {
             above = bellow = false;
             left = right = false;
+            climbingSlope = false;
+
+            slopeAngleOld = slopeAngle;
+            slopeAngle = 0;
         }
     }
 }

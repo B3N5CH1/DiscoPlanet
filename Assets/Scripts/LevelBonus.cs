@@ -4,11 +4,20 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(DeletePlayerPrefs))]
+
 public class LevelBonus : MonoBehaviour {
 
     public Animator animator;
 
+    private DeletePlayerPrefs del;
     private int levelToLoad;
+
+
+    private void Start()
+    {
+        del = GetComponent<DeletePlayerPrefs>();
+    }
 
     // Update is called once per frame
     void Update () {
@@ -17,9 +26,7 @@ public class LevelBonus : MonoBehaviour {
         if (Input.anyKey)
         {
             // Delete the current progression and fade to MainMenu
-            PlayerPrefs.DeleteKey("level1Completed");
-            PlayerPrefs.DeleteKey("level2Completed");
-            PlayerPrefs.DeleteKey("progressionStarted");
+            del.DeleteAll();
 
             FadeToLevel(1);
         }
