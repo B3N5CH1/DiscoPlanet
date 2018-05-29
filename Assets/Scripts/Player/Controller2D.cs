@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class Controller2D : MonoBehaviour {
 
-    public LayerMask collisionMask, collisionMaskCP;
+    public LayerMask collisionMask, collisionMaskCollectable;
+
+	private int[,] checks = new int[2, 5] { {1, 2, 3, 4, 5}, {0, 0, 0, 0, 0} };
 
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
@@ -60,14 +62,12 @@ public class Controller2D : MonoBehaviour {
                 collisions.above = directionY == 1;
             }
 
-            // Collision with cp mask
-            RaycastHit2D hitCP = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCP);
+            // Collision with checkpoint mask
 
-            if (hitCP)
-            {
-				
-				//hitCP.collider;
-                print("HIT CP");
+			RaycastHit2D hitCP = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCollectable);
+
+            if (hitCP) {
+				collectableCheck (hitCP);
             }
         }
     }
@@ -121,6 +121,14 @@ public class Controller2D : MonoBehaviour {
                     collisions.right = directionX == 1;
                 }
             }
+
+			RaycastHit2D hitCP = Physics2D.Raycast(rayOrigin, Vector2.up * directionX, rayLength, collisionMaskCollectable);
+
+			if (hitCP) {
+				collectableCheck (hitCP);
+			}
+
+
         }
     }
 
@@ -234,4 +242,38 @@ public class Controller2D : MonoBehaviour {
             slopeAngle = 0;
         }
     }
+
+
+
+	public void collectableCheck(RaycastHit2D hit) {
+		Inventory inv = new Inventory();
+
+		string item = hit.collider.name;
+
+		switch (item) {
+		case "ShinyRock":
+			if (checks [0, 1] == 0) {
+				if (inv.dialog (item)) {
+					checks [0, 1] = 1;
+				}
+			}
+			break;
+			
+			
+		default:
+			break;
+		}
+
+		/*
+		if (inv.checkItem (hit.collider)) {
+			checks [x] [1];
+		}*/
+	}
+
+
+
+
+
+
+
 }
