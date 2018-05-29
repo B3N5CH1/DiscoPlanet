@@ -65,6 +65,8 @@ public class Controller2D : MonoBehaviour {
 
             if (hitCP)
             {
+				
+				//hitCP.collider;
                 print("HIT CP");
             }
         }
