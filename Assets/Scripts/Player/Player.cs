@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,10 @@ public class Player : MonoBehaviour {
         print("Gravity " + gravity + " jumpVelocity " + jumpVelocity);
     }
 
+    public float getGravity()
+    {
+        return gravity;
+    }
     private void Update()
     {
         // If the player stands on something the velocity is not accumulated
@@ -56,5 +61,10 @@ public class Player : MonoBehaviour {
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.bellow)?accelerationTimeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void dealDMG(int damage)
+    {
+        health -= damage;
     }
 }

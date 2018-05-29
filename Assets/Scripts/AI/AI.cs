@@ -4,28 +4,38 @@ using UnityEngine;
 using StateStuff;
 using System;
 
-[RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(CanvasGroup), typeof(AIController2D), typeof(CircleCollider2D))]
 
 public class AI : MonoBehaviour {
 
     public static int AnimatorWalk = Animator.StringToHash("Walk");
     public static int AnimatorAttack = Animator.StringToHash("Attack");
 
+    public Player player;
+
     public bool meleed = false;
     public bool detected = false;
-    public int speed;
-    public int sightRange;
-    public int damage;
+    public float movespeed = 6;
+    public float sightRange = 10;
+    public int damage = 2;
+    public float meleeRange = 2;
+    public float accelerationTime = .1f;
+    public float gravity = -50;
 
     public StateMachine<AI> stateMachine { get; set; }
 
     public Animator _animator;
+
     CircleCollider2D _collider;
+    AIController2D _controller;
+    Vector3 velocity;
+    float velocityXSmoothing;
 
     void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _collider = GetComponentInChildren<CircleCollider2D>();
+        _controller = GetComponent<AIController2D>();
     }
 
     private void Start()
@@ -36,53 +46,41 @@ public class AI : MonoBehaviour {
 
         _collider.radius = sightRange/10;
 
-        //StartCoroutine(Animate());
     }
 
     public void attack()
     {
-
-        _animator.SetTrigger(AnimatorAttack);
+        player.dealDMG(damage);
     }
 
     public bool detect()
     {
 
-        return detected;
+        return getDistance()< sightRange;
+    }
+
+    private float getDistance()
+    {
+        return Vector3.Distance(transform.position, player.transform.position);
     }
 
     public bool melee()
     {
-
-        return meleed;
+        return getDistance()<meleeRange;
     }
 
-    internal void chase()
+    public void chase()
     {
         
+        //float targetVelocityX =  movespeed;
+        //velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, accelerationTime);
+        //velocity.y += gravity * Time.deltaTime;
+        _controller.Move(velocity * Time.deltaTime);
     }
 
     private void Update()
     {
-        /*if (Time.time > gameTimer + 1)
-        {
-            gameTimer = Time.time;
-            seconds++;
-            Debug.Log(seconds);
-        }
-
-        if (seconds == 5)
-        {
-            seconds = 0;
-            switchState = !switchState;
-        }*/
 
         stateMachine.Update();
-
-    }
-
-    IEnumerator Animate()
-    {
-        yield return new WaitForSeconds(5f);
     }
 }

@@ -27,14 +27,13 @@ public class AttackState : State<AI>
 
     public override void EnterState(AI _owner)
     {
-
-        _owner.attack();
+        _owner._animator.SetBool(Animator.StringToHash("Attack"), true);
         Debug.Log("Entering AttackState");
     }
 
     public override void ExitState(AI _owner)
     {
-
+        _owner._animator.SetBool(Animator.StringToHash("Attack"), false);
         Debug.Log("Exiting AttackState");
     }
 
@@ -46,13 +45,13 @@ public class AttackState : State<AI>
             _owner.stateMachine.changeState(ChaseState.Instance);
             
         }
-        else if (_owner.melee() && _owner.detect())
+        else if (!_owner.detect())
         {
-            _owner.stateMachine.changeState(AttackState.Instance);
+            _owner.stateMachine.changeState(IdleState.Instance);
         }
         else
         {
-            _owner.stateMachine.changeState(IdleState.Instance);
+            _owner.attack();
         }
     }
 }
