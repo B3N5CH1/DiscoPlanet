@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateStuff;
+using StateMachine;
 
 public class AttackState : State<AI>
 {

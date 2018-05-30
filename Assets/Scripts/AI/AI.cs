@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateStuff;
+using StateMachine;
 using System;
 
 [RequireComponent(typeof(CanvasGroup), typeof(AIController2D))]
 
-public class AI : MonoBehaviour {
+public class AI : MonoBehaviour{
 
     public Player player;
 
@@ -14,12 +14,12 @@ public class AI : MonoBehaviour {
     public float sightRange = 10;
     public int damage = 50;
     public float meleeRange = 5;
-    public float gravity = -100;
 
     public StateMachine<AI> stateMachine { get; set; }
 
     public Animator _animator;
 
+    float gravity = -20;
     SpriteRenderer _spriteR;
     AIController2D _controller;
     Vector3 velocity;
@@ -100,9 +100,14 @@ public class AI : MonoBehaviour {
 
     private void Update()
     {
+        // If the player stands on something the velocity is not accumulated
+        if (_controller.collisions.above || _controller.collisions.bellow)
+        {
+            velocity.y = 0;
+        }
 
         velocity.x = 0;
-        velocity.y = gravity * Time.deltaTime;
+        velocity.y += 10 * gravity * Time.deltaTime;
         stateMachine.Update();
         _controller.Move(velocity * Time.deltaTime);
     }

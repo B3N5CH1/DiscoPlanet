@@ -1,5 +1,5 @@
 ﻿
-namespace StateStuff
+namespace StateMachine
 {
     public class StateMachine<T>
     {
