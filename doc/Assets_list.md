@@ -28,6 +28,8 @@ This is a list of interesting assets found on the web, which might come in hand 
 * Other
   * [Text Mesh](https://assetstore.unity.com/packages/essentials/beta-projects/textmesh-pro-84126)
   * [Color Blind](https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/colorblind-effect-76360)
+  * [Chest](http://lpc.opengameart.org/static/lpc-style-guide/_images/chest_perspective.png)
+  * [Door](http://pixeldungeon.wikia.com/wiki/File:Door.png)
 
 ## Accoustic ##
 

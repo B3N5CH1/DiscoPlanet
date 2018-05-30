@@ -64,6 +64,24 @@ public class Player : MonoBehaviour {
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.bellow)?accelerationTimeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
+        {
+            if (this.transform.position.x >= 764 && this.transform.position.x <= 765)
+            {
+                this.transform.Translate(new Vector3(-883f, 0f));
+            }
+            else if (this.transform.position.x <= -124 && this.transform.position.x >= -125)
+            {
+                this.transform.Translate(new Vector3(883f, 0f));
+            }
+        } else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+        {
+
+        }
+
+
+
     }
 
     public void dealDMG(int damage)

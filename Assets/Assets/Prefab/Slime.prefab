@@ -118,7 +118,7 @@ MonoBehaviour:
   movespeed: 4
   sightRange: 10
   damage: 2
-  meleeRange: 5
+  meleeRange: 3
   _animator: {fileID: 95952721851164298}
 --- !u!212 &212119171585577134
 SpriteRenderer:

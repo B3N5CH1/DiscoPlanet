@@ -64,11 +64,12 @@ public class Controller2D : MonoBehaviour {
 
             // Collision with checkpoint mask
 
-			RaycastHit2D hitCP = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCollectable);
+			RaycastHit2D hitColl = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCollectable);
 
-            if (hitCP) {
-				collectableCheck (hitCP);
+            if (hitColl) {
+				collectableCheck (hitColl);
             }
+
         }
     }
 
@@ -122,12 +123,11 @@ public class Controller2D : MonoBehaviour {
                 }
             }
 
-			RaycastHit2D hitCP = Physics2D.Raycast(rayOrigin, Vector2.up * directionX, rayLength, collisionMaskCollectable);
+			RaycastHit2D hitColl = Physics2D.Raycast(rayOrigin, Vector2.up * directionX, rayLength, collisionMaskCollectable);
 
-			if (hitCP) {
-				collectableCheck (hitCP);
+			if (hitColl) {
+				collectableCheck (hitColl);
 			}
-
 
         }
     }
@@ -250,27 +250,106 @@ public class Controller2D : MonoBehaviour {
 
 		string item = hit.collider.name;
 
-		switch (item) {
-		case "ShinyRock":
-			if (checks [0, 1] == 0) {
-				if (inv.dialog (item)) {
-					checks [0, 1] = 1;
-				}
-			}
-			break;
-			
-			
-		default:
+        switch (item)
+        {
+            case "Shiny Rock":
+                if (Input.GetKey(KeyCode.E))
+                {
+                    if (checks[1, 0] == 0)
+                    {
+                        print("[1, 0] == 0");
+                        if (inv.dialog(item))
+                        {
+                            print(item + " should have been added");
+                            GameObject.Find("Shiny Rock").SetActive(false);
+
+
+                            checks[1, 0] = 1;
+                        }
+                    }
+                }
+                break;
+            case "Chest":
+                if (Input.GetKey(KeyCode.E))
+                {
+                    if (checks[1, 1] == 0)
+                    {
+                        if (inv.dialog(item))
+                        {
+                            print(item + " should have been added");
+                            GameObject.Find("Chest").SetActive(false);
+
+                            showBubble("I found a key! That should unlock a door somewhere.");
+
+                            checks[1, 1] = 1;
+                        }
+                    }
+                }
+                break;
+            case "Door":
+                inv.addItem("Chest");
+                if (Input.GetKey(KeyCode.E))
+                {
+                    if (inv.checkItem("Chest") == 1)
+                    {
+                        showBubble("Lucky me - that was the right key.");
+
+                        GameObject.Find("Door").SetActive(false);
+                        GameObject.Find("1-1f").SetActive(false);
+                    } else
+                    {
+                        showBubble("This door seems locked. Maybe there is a key somewhere?");
+                    }
+                }
+                break;
+            case "Light Graviton Collector":
+                if (checks[1, 2] == 0)
+                {
+                    if (inv.dialog(item))
+                    {
+                        checks[1, 2] = 1;
+                    }
+                }
+                break;
+            case "Light Gravitons":
+                if (checks[1, 3] == 0)
+                {
+                    if (inv.dialog(item))
+                    {
+                        checks[1, 3] = 1;
+                    }
+                }
+                break;
+            case "Last Item":
+                if (checks[1, 4] == 0)
+                {
+                    if (inv.dialog(item))
+                    {
+                        checks[1, 4] = 1;
+                    }
+                }
+                break;
+
+
+            default:
 			break;
 		}
-
-		/*
-		if (inv.checkItem (hit.collider)) {
-			checks [x] [1];
-		}*/
 	}
 
+    private void showBubble(string msg)
+    {
+        DialogBubble dialogBubble = GameObject.FindGameObjectWithTag("Player").GetComponent<DialogBubble>();
 
+        AssemblyCSharp.PixelBubble message = new AssemblyCSharp.PixelBubble();
+        message.vMessage = msg;
+
+        dialogBubble.vBubble.Add(message);
+
+        dialogBubble.ShowBubble(dialogBubble);
+
+        dialogBubble.vBubble.Clear();
+
+    }
 
 
 

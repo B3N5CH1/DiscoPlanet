@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Inventory : MonoBehaviour {
+public class Inventory {
 
 	public void addItem(string name) {
 		if (checkItem(name) == 0) {
@@ -18,9 +18,9 @@ public class Inventory : MonoBehaviour {
 	}
 
 	public bool dialog(string name) {
-		bool added = false;
+        addItem(name);
 
-		return added;
+		return true;
 	}
 
 }
