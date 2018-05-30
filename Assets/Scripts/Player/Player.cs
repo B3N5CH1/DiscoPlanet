@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[RequireComponent (typeof(Controller2D))]
+[RequireComponent (typeof(Controller2D), typeof(DeletePlayerPrefs))]
 
 public class Player : MonoBehaviour {
 
@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
     float gravity;
     float velocityXSmoothing;
 
+    DeletePlayerPrefs del;
     Vector3 velocity;
     Animator _animator;
     Controller2D controller;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour {
     {
         controller = GetComponent<Controller2D>();
         _animator = GetComponentInChildren<Animator>();
+        del = GetComponent<DeletePlayerPrefs>();
 
         // Calculate once the gravity and the jump velocity using those two physics functions :
         // dx = v*t + (a*t^2)/2
@@ -71,7 +73,8 @@ public class Player : MonoBehaviour {
         health -= damage;
         if (health == 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            del.DeleteAll();
+            SceneManager.LoadScene(1);
         }
     }
 }
