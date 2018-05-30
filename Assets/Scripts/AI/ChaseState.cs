@@ -50,7 +50,7 @@ public class ChaseState : State<AI>
         {
             _owner.stateMachine.changeState(AttackState.Instance);
         }
-        else
+        else if (_owner.detect() && !_owner.melee())
         {
             _owner.chase();
         }

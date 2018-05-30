@@ -39,7 +39,7 @@ public class IdleState : State<AI>
 
     public override void UpdateState(AI _owner)
     {
-        if (_owner.detect() && ! _owner.melee())
+        if (_owner.detect() && !_owner.melee())
         {
             _owner.stateMachine.changeState(ChaseState.Instance);
         }

@@ -4,37 +4,31 @@ using UnityEngine;
 using StateStuff;
 using System;
 
-[RequireComponent(typeof(CanvasGroup), typeof(AIController2D), typeof(CircleCollider2D))]
+[RequireComponent(typeof(CanvasGroup), typeof(AIController2D))]
 
 public class AI : MonoBehaviour {
 
-    public static int AnimatorWalk = Animator.StringToHash("Walk");
-    public static int AnimatorAttack = Animator.StringToHash("Attack");
-
     public Player player;
 
-    public bool meleed = false;
-    public bool detected = false;
-    public float movespeed = 6;
+    public float movespeed = 4;
     public float sightRange = 10;
-    public int damage = 2;
-    public float meleeRange = 2;
+    public int damage = 50;
+    public float meleeRange = 5;
     public float gravity = -100;
 
     public StateMachine<AI> stateMachine { get; set; }
 
     public Animator _animator;
 
-    CircleCollider2D _collider;
+    SpriteRenderer _spriteR;
     AIController2D _controller;
     Vector3 velocity;
-    float velocityXSmoothing;
 
     void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
-        _collider = GetComponentInChildren<CircleCollider2D>();
         _controller = GetComponent<AIController2D>();
+        _spriteR = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -43,12 +37,11 @@ public class AI : MonoBehaviour {
 
         stateMachine.changeState(IdleState.Instance);
 
-        _collider.radius = sightRange/10;
-
     }
 
     public void attack()
     {
+
         player.dealDMG(damage);
     }
 
@@ -60,35 +53,57 @@ public class AI : MonoBehaviour {
 
     private float getDistance()
     {
+      
         return Vector3.Distance(transform.position, player.transform.position);
     }
 
     public bool melee()
     {
         return getDistance() <= meleeRange;
-        //return getDistance() < meleeRange;
     }
 
     public void chase()
     {
-        if (detect())
+        Vector3 heading = player.transform.position - transform.position;
+        float dirX = AngleDir(transform.forward, heading, transform.up);
+        if (dirX > 0.0f)
         {
-            transform.position += transform.forward * movespeed * Time.deltaTime;
+            _spriteR.flipX = true;
         }
-        //velocity.y = gravity * Time.deltaTime;
-       // _controller.Move(velocity * Time.deltaTime);
+        else if(dirX < 0.0f)
+        {
+            _spriteR.flipX = false;
+        }
+        velocity.x = dirX * movespeed;
+       
+    }
+
+    //returns -1 when to the left, 1 to the right, and 0 for forward/backward
+    public float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
+    {
+        Vector3 perp = Vector3.Cross(fwd, targetDir);
+        float dir = Vector3.Dot(perp, up);
+
+        if (dir > 0.0f)
+        {
+            return 1.0f;
+        }
+        else if (dir < 0.0f)
+        {
+            return -1.0f;
+        }
+        else
+        {
+            return 0.0f;
+        }
     }
 
     private void Update()
     {
 
-        transform.LookAt(player.transform);
-
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        velocity.x = input.x * movespeed;
+        velocity.x = 0;
         velocity.y = gravity * Time.deltaTime;
-        chase();
-        //stateMachine.Update();
+        stateMachine.Update();
+        _controller.Move(velocity * Time.deltaTime);
     }
 }
