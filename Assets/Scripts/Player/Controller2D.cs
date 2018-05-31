@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 
-[RequireComponent (typeof(BoxCollider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 
 /*
  * This script handle controlls the behaviour of the player.
  */
 
-public class Controller2D : MonoBehaviour {
+public class Controller2D : MonoBehaviour
+{
 
     public LayerMask collisionMask, collisionMaskCollectable;
 
-	private int[,] checks = new int[2, 5] { {1, 2, 3, 4, 5}, {0, 0, 0, 0, 0} };
+    private int[,] checks = new int[2, 5] { { 1, 2, 3, 4, 5 }, { 0, 0, 0, 0, 0 } };
 
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
@@ -43,22 +44,22 @@ public class Controller2D : MonoBehaviour {
 
         // Assign the direction of Y
         float directionY = Mathf.Sign(velocity.y);
-        float rayLength = Mathf.Abs(velocity.y) + skinWidth; 
+        float rayLength = Mathf.Abs(velocity.y) + skinWidth;
 
         // Draw the raycast going at the bottom of our object
         for (int i = 0; i < verticalRayCount; i++)
         {
-            Vector2 rayOrigin = (directionY == -1)?raycastOrigins.bottomLeft:raycastOrigins.topLeft;
+            Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
 
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength,Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
             // If the player hits an obstacle blocks that way and notice where the collision has occured
             if (hit)
             {
-                velocity.y = (hit.distance-skinWidth) * directionY;
+                velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
 
                 // If our player is climbing a slope his x velocity is recalculated using trigonometry
@@ -66,17 +67,18 @@ public class Controller2D : MonoBehaviour {
                 {
                     velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
                 }
-                        
+
                 collisions.bellow = directionY == -1;
                 collisions.above = directionY == 1;
             }
 
             // Collision with checkpoint mask
 
-			RaycastHit2D hitColl = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCollectable);
+            RaycastHit2D hitColl = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCollectable);
 
-            if (hitColl) {
-				collectableCheck (hitColl);
+            if (hitColl)
+            {
+                collectableCheck(hitColl);
             }
 
         }
@@ -114,7 +116,7 @@ public class Controller2D : MonoBehaviour {
                 {
                     // Smooth the approach of our player
                     float distanceToSlope = 0;
-                    if(slopeAngle != collisions.slopeAngleOld)
+                    if (slopeAngle != collisions.slopeAngleOld)
                     {
                         distanceToSlope = hit.distance - skinWidth;
                         velocity.x -= distanceToSlope * directionX;
@@ -129,7 +131,7 @@ public class Controller2D : MonoBehaviour {
                     velocity.x = (hit.distance - skinWidth) * directionX;
                     rayLength = hit.distance;
 
-                    if(collisions.climbingSlope)
+                    if (collisions.climbingSlope)
                     {
                         velocity.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x);
                     }
@@ -139,11 +141,12 @@ public class Controller2D : MonoBehaviour {
                 }
             }
 
-			RaycastHit2D hitColl = Physics2D.Raycast(rayOrigin, Vector2.up * directionX, rayLength, collisionMaskCollectable);
+            RaycastHit2D hitColl = Physics2D.Raycast(rayOrigin, Vector2.up * directionX, rayLength, collisionMaskCollectable);
 
-			if (hitColl) {
-				collectableCheck (hitColl);
-			}
+            if (hitColl)
+            {
+                collectableCheck(hitColl);
+            }
 
         }
     }
@@ -192,7 +195,7 @@ public class Controller2D : MonoBehaviour {
             {
                 if (Mathf.Sign(hit.normal.x) == directionX)
                 {
-                    if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle*Mathf.Deg2Rad)*Mathf.Abs(velocity.x))
+                    if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x))
                     {
                         float moveDistance = Mathf.Abs(velocity.x);
                         float descentVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
@@ -281,10 +284,11 @@ public class Controller2D : MonoBehaviour {
 
 
 
-	public void collectableCheck(RaycastHit2D hit) {
-		Inventory inv = new Inventory();
+    public void collectableCheck(RaycastHit2D hit)
+    {
+        Inventory inv = new Inventory();
 
-		string item = hit.collider.name;
+        string item = hit.collider.name;
 
         switch (item)
         {
@@ -323,7 +327,6 @@ public class Controller2D : MonoBehaviour {
                 }
                 break;
             case "Door":
-                inv.addItem("Chest");
                 if (Input.GetKey(KeyCode.E))
                 {
                     if (inv.checkItem("Chest") == 1)
@@ -332,33 +335,56 @@ public class Controller2D : MonoBehaviour {
 
                         GameObject.Find("Door").SetActive(false);
                         GameObject.Find("1-1f").SetActive(false);
-                    } else
+                    }
+                    else
                     {
                         showBubble("This door seems locked. Maybe there is a key somewhere?");
                     }
                 }
                 break;
-		case "Light Graviton Collector":
-				if (Input.GetKey (KeyCode.E)) {
-					if (checks [1, 2] == 0) {
-						if (inv.dialog (item)) {
-							print (item + " should have been added");
-							GameObject.Find ("Light Graviton Collector").GetComponent<LGC>().activateSlime();
-							GameObject.Find ("Light Graviton Collector").SetActive (false);
-							//(new LGC ()).activateSlime ();
-							//GameObject.Find ("LGCSlime").SetActive (true);
-							
-							checks [1, 2] = 1;
-						}
-					}
-				}
+            case "Light Graviton Collector":
+                if (Input.GetKey(KeyCode.E))
+                {
+                    if (checks[1, 2] == 0)
+                    {
+                        if (inv.dialog(item))
+                        {
+                            print(item + " should have been added");
+                            GameObject.Find("Light Graviton Collector").GetComponent<LGC>().activateSlime();
+                            GameObject.Find("Light Graviton Collector").SetActive(false);
+                            //(new LGC ()).activateSlime ();
+                            //GameObject.Find ("LGCSlime").SetActive (true);
+
+                            checks[1, 2] = 1;
+                        }
+                    }
+                }
+                break;
+            case "Teleporter":
+                inv.addItem("Shiny Rock");
+                if (Input.GetKey(KeyCode.E))
+                {
+                    if (inv.checkItem("Shiny Rock") == 1)
+                    {
+                        showBubble("As it looks like, that shiny rock was the special gem, which is used for the teleporter.");
+                        GameObject.Find("TPPanel (inactive)").SetActive(false);
+                    }
+                    else
+                    {
+                        showBubble("It seems not functional. There is a slot for a gem which seems important to focus the laser.");
+                    }
+
+                }
                 break;
             case "Light Gravitons":
-                if (checks[1, 3] == 0)
+                if (Input.GetKey(KeyCode.E))
                 {
-                    if (inv.dialog(item))
+                    if (checks[1, 3] == 0)
                     {
-                        checks[1, 3] = 1;
+                        if (inv.dialog(item))
+                        {
+                            checks[1, 3] = 1;
+                        }
                     }
                 }
                 break;
@@ -374,9 +400,9 @@ public class Controller2D : MonoBehaviour {
 
 
             default:
-			break;
-		}
-	}
+                break;
+        }
+    }
 
     private void showBubble(string msg)
     {
