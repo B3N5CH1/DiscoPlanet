@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
+
+/*
+ * This script create a small animation to a text.
+ * It resize it using two border values, making look like it's tilting.
+ */
 
 public class TiltEffect : MonoBehaviour {
 
@@ -24,6 +26,7 @@ public class TiltEffect : MonoBehaviour {
         switch (direction)
         {
             case true:
+                // Check if the size of the text reached the maximum size allowed
                 if (m_Text.fontSize < maxTextSize)
                 {
                     m_Text.fontSize++;
@@ -31,6 +34,7 @@ public class TiltEffect : MonoBehaviour {
                 else direction = false;
                 break;
             case false:
+                // Check if the size of the text reached the minimum size allowed
                 if (m_Text.fontSize > minTextSize)
                 {
                     m_Text.fontSize--;

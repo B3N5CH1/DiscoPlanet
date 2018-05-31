@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(DeletePlayerPrefs))]
+
+/*
+ * This script handle the behaviour of the Bonus level.
+ */
 
 public class LevelBonus : MonoBehaviour {
 
@@ -13,7 +14,7 @@ public class LevelBonus : MonoBehaviour {
     private DeletePlayerPrefs del;
     private int levelToLoad;
 
-
+    // Called when the scene is loaded, instanciate a few gameojbect
     private void Start()
     {
         del = GetComponent<DeletePlayerPrefs>();

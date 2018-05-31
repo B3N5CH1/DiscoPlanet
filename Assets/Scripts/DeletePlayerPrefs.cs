@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This class handle the removale of the player preferences, which are used as our data storage.
+ */
+
 public class DeletePlayerPrefs : MonoBehaviour {
 
+    // Simple constructor
 	public DeletePlayerPrefs ()
     {
 
     }
 
+    // Method that delete the game progression preferences (not the settings)
     public void DeleteAll()
     {
         PlayerPrefs.DeleteKey("level1Completed");

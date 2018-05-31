@@ -2,6 +2,10 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
+/*
+ * This script handle the behaviour of the Start scene.
+ */
+
 public class EnterMainScene : MonoBehaviour {
 
     public Animator animator;
@@ -16,9 +20,11 @@ public class EnterMainScene : MonoBehaviour {
         audioMixer.SetFloat("volumeBG", PlayerPrefs.GetFloat("volumeBG", 0));
         audioMixer.SetFloat("volumeSFX", PlayerPrefs.GetFloat("volumeSFX", 0));
     }
+
     // Update is called once per frame
     void Update () {
         
+        // Listen to any input pressed, if yes calls FadeToLevel()
         if (Input.anyKey)
         {
             FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);

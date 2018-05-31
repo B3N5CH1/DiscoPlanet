@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /*
- * This script handle the behaviour of the mainMenu.
+ * This script handle the behaviour of the Main menu scene.
  */
+
 [RequireComponent(typeof(DeletePlayerPrefs))]
 
 public class MainMenu : MonoBehaviour {
@@ -18,11 +17,15 @@ public class MainMenu : MonoBehaviour {
     private DeletePlayerPrefs del;
     private int levelToLoad;
 
+    // Called when the scene is loaded, instanciate a few gameojbect
     private void Start()
     {
         del = GetComponent<DeletePlayerPrefs>();
     }
 
+    // Check if there is some data stored about the progression, 
+    // if no start a new game,
+    // if yes change menu viewed
     public void PlayGame()
     {
         if (PlayerPrefs.GetInt("progressionStarted", 0) == 1)
@@ -61,7 +64,7 @@ public class MainMenu : MonoBehaviour {
         
     }
 
-    // Delete the data stored in PlayerPrefs
+    // Delete the data stored in PlayerPrefs and start the routine to load the level selection scene
     public void DestroySaves()
     {
         del.DeleteAll();

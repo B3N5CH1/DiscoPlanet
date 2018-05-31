@@ -2,6 +2,10 @@
 
 [RequireComponent (typeof(BoxCollider2D))]
 
+/*
+ * This script handle controlls the behaviour of the player.
+ */
+
 public class Controller2D : MonoBehaviour {
 
     public LayerMask collisionMask, collisionMaskCollectable;
@@ -22,16 +26,22 @@ public class Controller2D : MonoBehaviour {
     RaycastOrigins raycastOrigins;
     public CollisionInfo collisions;
 
+    // Called when the scene is loaded, instanciate a few gameojbect and calculate the spacing of the raycast on our player
     private void Start()
     {
         collider = GetComponent<BoxCollider2D>();
         CalculateRaySpacing();
     }
 
-    // Handle the vertical Collisions
+    /** 
+     * Handle the vertical Collisions
+     * 
+     * @velocity the vector we use to move our player (called by reference)
+     */
     private void VerticalCollision(ref Vector3 velocity)
     {
 
+        // Assign the direction of Y
         float directionY = Mathf.Sign(velocity.y);
         float rayLength = Mathf.Abs(velocity.y) + skinWidth; 
 
@@ -51,6 +61,7 @@ public class Controller2D : MonoBehaviour {
                 velocity.y = (hit.distance-skinWidth) * directionY;
                 rayLength = hit.distance;
 
+                // If our player is climbing a slope his x velocity is recalculated using trigonometry
                 if (collisions.climbingSlope)
                 {
                     velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
@@ -71,10 +82,14 @@ public class Controller2D : MonoBehaviour {
         }
     }
 
-    // Handle the Horizontal Collisions
+    /** 
+     * Handle the horizontal Collisions
+     * 
+     * @velocity the vector we use to move our player (called by reference)
+     */
     private void HorizontalCollision(ref Vector3 velocity)
     {
-
+        // Assign the direction of Y
         float directionX = Mathf.Sign(velocity.x);
         float rayLength = Mathf.Abs(velocity.x) + skinWidth;
 
@@ -94,8 +109,10 @@ public class Controller2D : MonoBehaviour {
                 //  Gets the angle between the normal of the hit vector and the vector up
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
+                // If the slope angle is smaller than our max climb angle we can climb that object
                 if (i == 0 && slopeAngle <= maxClimbAngle)
                 {
+                    // Smooth the approach of our player
                     float distanceToSlope = 0;
                     if(slopeAngle != collisions.slopeAngleOld)
                     {
@@ -106,6 +123,7 @@ public class Controller2D : MonoBehaviour {
                     velocity.x += distanceToSlope * directionX;
                 }
 
+                // Notify where the collision(s) occur, and calculate a new component x for the velocity
                 if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
                 {
                     velocity.x = (hit.distance - skinWidth) * directionX;
@@ -130,6 +148,12 @@ public class Controller2D : MonoBehaviour {
         }
     }
 
+    /**
+     * Calculate new value for the components x,y of the vector velocity when climbing a slope.
+     * 
+     * @velocity the vector we use to move our player (called by reference)
+     * @slopeAngle the angle of the slope
+    */
     void ClimbSlope(ref Vector3 velocity, float slopeAngle)
     {
 
@@ -149,6 +173,12 @@ public class Controller2D : MonoBehaviour {
         }
     }
 
+    /** 
+     * Calculate new value for the components x,y of the vector velocity when descending a slope.
+     * 
+     * @velocity the vector we use to move our player (called by reference)
+     * @slopeAngle the angle of the slope
+    */
     void DescentSlope(ref Vector3 velocity)
     {
         float directionX = Mathf.Sign(velocity.x);
@@ -177,7 +207,12 @@ public class Controller2D : MonoBehaviour {
             }
         }
     }
-    // Move the player
+
+    /**
+     * Move the player
+     * 
+     * @param velocity the vector used to move the player
+     */
     public void Move(Vector3 velocity)
     {
 
@@ -217,12 +252,15 @@ public class Controller2D : MonoBehaviour {
         verticalRaySpacing = bounds.size.y / (verticalRayCount - 1);
     }
 
+    // A struct used to create and handle the raycast on our player
     struct RaycastOrigins
     {
         public Vector2 topLeft, topRight;
         public Vector2 bottomLeft, bottomRight;
     }
 
+    // A struct which stores where is the collisions occuring
+    // with a Reset method
     public struct CollisionInfo
     {
         public bool above, bellow;

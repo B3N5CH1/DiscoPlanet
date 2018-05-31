@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using StateMachine;
+
+/*
+ * This script handle the Idle state.
+ */
 
 public class IdleState : State<AI>
 {
@@ -25,18 +27,37 @@ public class IdleState : State<AI>
         }
     }
 
+    /**
+     * Called when entering the state.
+     * 
+     * @ _owner the AI it belongs to
+     */
     public override void EnterState(AI _owner)
     {
 
         Debug.Log("Entering IdleState");
     }
 
+    /**
+     * Called when exiting the state.
+     * 
+     * @ _owner the AI it belongs to
+     */
     public override void ExitState(AI _owner)
     {
 
         Debug.Log("Exiting IdleState");
     }
 
+    /**
+    * Called when updating the state.
+    * Check if the player is detected and in melee range.
+    * If detected but not in melee range, it changes state to CaseState.
+    * If detected and in melee range, it changes state to AttackState.
+    * Else it stays in IdleState.
+    * 
+    * @ _owner the AI it belongs to
+    */
     public override void UpdateState(AI _owner)
     {
         if (_owner.detect() && !_owner.melee())

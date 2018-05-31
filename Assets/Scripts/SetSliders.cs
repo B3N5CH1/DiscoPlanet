@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+
+/*
+ * This script handle the behaviour of sliders in the main menu scene.
+ */
 
 public class SetSliders : MonoBehaviour {
 
@@ -11,7 +13,7 @@ public class SetSliders : MonoBehaviour {
     public AudioMixer audioMixer;
 
     // When the Gameobject is activated calls this function,
-    // which sets the value of the sliders in accordance to the current volumes values.
+    // which sets the value of the sliders in accordance to the value of the player preferences or the default one.
     public void OnEnable()
     {
         float valBG;

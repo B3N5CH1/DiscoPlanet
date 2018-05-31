@@ -3,6 +3,10 @@ using StateMachine;
 
 [RequireComponent(typeof(CanvasGroup), typeof(AIController2D))]
 
+/*
+ * This script handle the behaviour of the AI.
+ */
+
 public class AI : MonoBehaviour
 {
 
@@ -24,6 +28,7 @@ public class AI : MonoBehaviour
     AIController2D _controller;
     Vector3 velocity;
 
+    // Instanciate a few gameojbect
     void Awake()
     {
         _audio = GetComponent<AudioSource>();
@@ -32,6 +37,7 @@ public class AI : MonoBehaviour
         _spriteR = GetComponent<SpriteRenderer>();
     }
 
+    // Called when the scene is loaded, instanciate a few gameojbect
     private void Start()
     {
         stateMachine = new StateMachine<AI>(this);
@@ -40,29 +46,50 @@ public class AI : MonoBehaviour
 
     }
 
+    // Attack the player
     public void attack()
     {
 
         player.dealDMG(damage);
     }
 
+    /**
+     * If the player is within sight range returns true
+     * 
+     * @return 
+     */
     public bool detect()
     {
 
         return getDistance() <= sightRange;
     }
 
+    /**
+     * Get the distance between this AI and the player
+     * 
+     * @return
+     */
     private float getDistance()
     {
 
         return Vector3.Distance(transform.position, player.transform.position);
     }
 
+    /**
+     * If the player is within melee range returns true
+     *
+     * @return
+     */
     public bool melee()
     {
         return getDistance() <= meleeRange;
     }
 
+    /**
+     * Calculate the x component of the AI, based on the player's position.
+     * Flip the sprite to always face the player (left,right).
+     * 
+     */
     public void chase()
     {
         Vector3 heading = player.transform.position - transform.position;
@@ -79,7 +106,17 @@ public class AI : MonoBehaviour
 
     }
 
-    //returns -1 when to the left, 1 to the right, and 0 for forward/backward
+    /**
+     * Calculate the cross product between the forward vector of our AI and the one from the player.
+     * Then process a dot product on the newly calculated vector and the vector up from our AI.
+     * Finally we read compare the result with 0, and get the direction.
+     * 
+     * @param fwd
+     * @param targetDir
+     * @param up
+     * 
+     * @return -1 when to the left, 1 to the right, and 0 for forward/backward
+     */
     public float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
     {
         Vector3 perp = Vector3.Cross(fwd, targetDir);
@@ -99,6 +136,7 @@ public class AI : MonoBehaviour
         }
     }
 
+    // Update method called once per frame
     private void Update()
     {
         // If the player stands on something the velocity is not accumulated
@@ -109,10 +147,13 @@ public class AI : MonoBehaviour
 
         velocity.x = 0;
         velocity.y += 10 * gravity * Time.deltaTime;
+        // Update the state machine
         stateMachine.Update();
+        // Move the AI with the newly calculated vector velocity
         _controller.Move(velocity * Time.deltaTime);
     }
 
+    // Play the audio attached to this gameobject
     void PlaySound()
     {
         _audio.Play();

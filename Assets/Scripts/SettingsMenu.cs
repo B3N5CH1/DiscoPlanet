@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
+
+/*
+ * This script handle the behaviour of the settings menu in the maine menu scene.
+ */
 
 public class SettingsMenu : MonoBehaviour {
 

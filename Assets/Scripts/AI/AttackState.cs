@@ -1,7 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using StateMachine;
+
+/*
+ * This script handle the Attack state.
+ */
 
 public class AttackState : State<AI>
 {
@@ -25,18 +27,39 @@ public class AttackState : State<AI>
         }
     }
 
+    /**
+     * Called when entering the state.
+     * Starts the attack animation.
+     * 
+     * @ _owner the AI it belongs to
+     */
     public override void EnterState(AI _owner)
     {
         _owner._animator.SetBool(Animator.StringToHash("Attack"), true);
         Debug.Log("Entering AttackState");
     }
 
+    /**
+    * Called when exiting the state.
+    * Stops the attack animation.
+    * 
+    * @ _owner the AI it belongs to
+    */
     public override void ExitState(AI _owner)
     {
         _owner._animator.SetBool(Animator.StringToHash("Attack"), false);
         Debug.Log("Exiting AttackState");
     }
 
+    /**
+    * Called when updating the state.
+    * Check if the player is detected and in melee range.
+    * If detected but not in melee range, it changes state to CaseState.
+    * If not detected anymore, it changes state to IdleState.
+    * Else call the attack() method of the _owner.
+    * 
+    * @ _owner the AI it belongs to
+    */
     public override void UpdateState(AI _owner)
     {
 

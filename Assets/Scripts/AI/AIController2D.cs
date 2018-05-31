@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
+
+/*
+ * This script handle controlls the behaviour of the AI.
+ */
+
 
 public class AIController2D : MonoBehaviour
 {
@@ -21,17 +23,25 @@ public class AIController2D : MonoBehaviour
     RaycastOrigins raycastOrigins;
     public CollisionInfo collisions;
 
+    // Called when the scene is loaded, instanciate a few gameojbect and calculate the spacing of the raycast on our player
     private void Start()
     {
         collider = GetComponent<BoxCollider2D>();
         CalculateRaySpacing();
     }
 
+   /** 
+   * Handle the vertical Collisions
+   * 
+   * @velocity the vector we use to move our AI (called by reference)
+   */
     void VerticalCollision(ref Vector3 velocity)
     {
+        // Assign the direction of Y
         float directionY = Mathf.Sign(velocity.y);
         float rayLength = Mathf.Abs(velocity.y)+skinWidth;
 
+        // Draw the raycast going at the bottom of our object
         for (int i = 0; i < verticalRayCount; i++)
         {
             
@@ -41,13 +51,15 @@ public class AIController2D : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
-            
+
+            // If the AI hits an obstacle blocks that way and notice where the collision has occured
             if (hit)
             {
                 
                 velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
 
+                // If our player is climbing a slope his x velocity is recalculated using trigonometry
                 if (collisions.climbingSlope)
                 {
                     velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
@@ -60,11 +72,18 @@ public class AIController2D : MonoBehaviour
         }
     }
 
+    /** 
+    * Handle the horizontal Collisions
+    * 
+    * @velocity the vector we use to move our AI (called by reference)
+    */
     void HorizontalCollision(ref Vector3 velocity)
     {
+        // Assign the direction of Y
         float directionX = Mathf.Sign(velocity.x);
         float rayLength = Mathf.Abs(velocity.x) + skinWidth;
 
+        // Draw the raycast going at the bottom of our object
         for (int i = 0; i < horizontalRayCount; i++)
         {
 
@@ -75,20 +94,17 @@ public class AIController2D : MonoBehaviour
 
             Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
 
+            // If the AI hits an obstacle blocks that way and notice where the collision has occured
             if (hit)
             {
-                /*
-                velocity.x = (hit.distance - skinWidth) * directionX;
-                rayLength = hit.distance;
-
-                collisions.left = directionX == -1;
-                collisions.right = directionX == 1;
-                */
+                
                 //  Gets the angle between the normal of the hit vector and the vector up
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
+                // If the slope angle is smaller than our max climb angle we can climb that object
                 if (i == 0 && slopeAngle <= maxClimbAngle)
                 {
+                    // Smooth the approach of our AI
                     float distanceToSlope = 0;
                     if (slopeAngle != collisions.slopeAngleOld)
                     {
@@ -99,6 +115,7 @@ public class AIController2D : MonoBehaviour
                     velocity.x += distanceToSlope * directionX;
                 }
 
+                // Notify where the collision(s) occur, and calculate a new component x for the velocity
                 if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
                 {
                     velocity.x = (hit.distance - skinWidth) * directionX;
@@ -116,6 +133,11 @@ public class AIController2D : MonoBehaviour
         }
     }
 
+    /**
+     * Move the AI
+     * 
+     * @param velocity the vector used to move the AI
+     */
     public void Move(Vector3 velocity)
     {
         UpdateRaycastOrigins();
@@ -152,6 +174,12 @@ public class AIController2D : MonoBehaviour
         verticalRaySpacing = bounds.size.y / (verticalRayCount - 1);
     }
 
+    /**
+     * Calculate new value for the components x,y of the vector velocity when climbing a slope.
+     * 
+     * @velocity the vector we use to move our player (called by reference)
+     * @slopeAngle the angle of the slope
+    */
     void ClimbSlope(ref Vector3 velocity, float slopeAngle)
     {
 
@@ -171,6 +199,12 @@ public class AIController2D : MonoBehaviour
         }
     }
 
+    /** 
+   * Calculate new value for the components x,y of the vector velocity when descending a slope.
+   * 
+   * @velocity the vector we use to move our AI (called by reference)
+   * @slopeAngle the angle of the slope
+     */
     void DescentSlope(ref Vector3 velocity)
     {
         float directionX = Mathf.Sign(velocity.x);
@@ -200,11 +234,15 @@ public class AIController2D : MonoBehaviour
         }
     }
 
+    // A struct used to create and handle the raycast on our player
     struct RaycastOrigins
     {
         public Vector2 topLeft, topRight;
         public Vector2 bottomLeft, bottomRight;
     }
+
+    // A struct which stores where is the collisions occuring
+    // with a Reset method
     public struct CollisionInfo
     {
         public bool above, bellow;

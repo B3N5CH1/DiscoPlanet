@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+/*
+ * This script handle the behaviour of the level selection scene.
+ */
 
 public class SelectLevel : MonoBehaviour {
 
@@ -13,11 +15,13 @@ public class SelectLevel : MonoBehaviour {
 
     private int levelToLoad;
 
+    // Called when the scene is loaded
     private void Start()
     {
-        // Notification that the game has been started
+        // Saves that the progression is not 0 anymore
         PlayerPrefs.SetInt("progressionStarted", 1);
 
+        // Get the state of the player's progression
         int level1Completed = PlayerPrefs.GetInt("level1Completed", 0);
         int level2Completed = PlayerPrefs.GetInt("level2Completed", 0);
 
