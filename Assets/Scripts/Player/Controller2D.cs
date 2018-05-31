@@ -338,14 +338,20 @@ public class Controller2D : MonoBehaviour {
                     }
                 }
                 break;
-            case "Light Graviton Collector":
-                if (checks[1, 2] == 0)
-                {
-                    if (inv.dialog(item))
-                    {
-                        checks[1, 2] = 1;
-                    }
-                }
+		case "Light Graviton Collector":
+				if (Input.GetKey (KeyCode.E)) {
+					if (checks [1, 2] == 0) {
+						if (inv.dialog (item)) {
+							print (item + " should have been added");
+							GameObject.Find ("Light Graviton Collector").GetComponent<LGC>().activateSlime();
+							GameObject.Find ("Light Graviton Collector").SetActive (false);
+							//(new LGC ()).activateSlime ();
+							//GameObject.Find ("LGCSlime").SetActive (true);
+							
+							checks [1, 2] = 1;
+						}
+					}
+				}
                 break;
             case "Light Gravitons":
                 if (checks[1, 3] == 0)
@@ -356,7 +362,7 @@ public class Controller2D : MonoBehaviour {
                     }
                 }
                 break;
-            case "Last Item":
+            case "Ice Cream":
                 if (checks[1, 4] == 0)
                 {
                     if (inv.dialog(item))

@@ -19,6 +19,12 @@ public class DeletePlayerPrefs : MonoBehaviour {
     {
         PlayerPrefs.DeleteKey("level1Completed");
         PlayerPrefs.DeleteKey("level2Completed");
-        PlayerPrefs.DeleteKey("progressionStarted");
+		PlayerPrefs.DeleteKey("progressionStarted");
+
+		PlayerPrefs.DeleteKey ("Shiny Rock");
+		PlayerPrefs.DeleteKey ("Chest");
+		PlayerPrefs.DeleteKey ("Light Graviton Collector");
+		PlayerPrefs.DeleteKey ("Light Gravitons");
+		PlayerPrefs.DeleteKey ("Ice Cream");
     }
 }
