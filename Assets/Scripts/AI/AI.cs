@@ -3,7 +3,8 @@ using StateMachine;
 
 [RequireComponent(typeof(CanvasGroup), typeof(AIController2D))]
 
-public class AI : MonoBehaviour{
+public class AI : MonoBehaviour
+{
 
     public Player player;
 
@@ -11,11 +12,13 @@ public class AI : MonoBehaviour{
     public float sightRange = 10;
     public int damage = 2;
     public float meleeRange = 5;
+    public float soundToPlay = -1.0f;
 
     public StateMachine<AI> stateMachine { get; set; }
 
     public Animator _animator;
 
+    AudioSource _audio;
     float gravity = -20;
     SpriteRenderer _spriteR;
     AIController2D _controller;
@@ -23,6 +26,7 @@ public class AI : MonoBehaviour{
 
     void Awake()
     {
+        _audio = GetComponent<AudioSource>();
         _animator = GetComponentInChildren<Animator>();
         _controller = GetComponent<AIController2D>();
         _spriteR = GetComponent<SpriteRenderer>();
@@ -50,7 +54,7 @@ public class AI : MonoBehaviour{
 
     private float getDistance()
     {
-      
+
         return Vector3.Distance(transform.position, player.transform.position);
     }
 
@@ -67,12 +71,12 @@ public class AI : MonoBehaviour{
         {
             _spriteR.flipX = true;
         }
-        else if(dirX < 0.0f)
+        else if (dirX < 0.0f)
         {
             _spriteR.flipX = false;
         }
         velocity.x = dirX * movespeed;
-       
+
     }
 
     //returns -1 when to the left, 1 to the right, and 0 for forward/backward
@@ -107,5 +111,10 @@ public class AI : MonoBehaviour{
         velocity.y += 10 * gravity * Time.deltaTime;
         stateMachine.Update();
         _controller.Move(velocity * Time.deltaTime);
+    }
+
+    void PlaySound()
+    {
+        _audio.Play();
     }
 }

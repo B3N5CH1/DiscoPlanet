@@ -39,3 +39,5 @@ This is a list of interesting assets found on the web, which might come in hand 
   * [Infinity](https://assetstore.unity.com/packages/audio/music/infinity-free-track-108690)
   * [Atmospheric](https://assetstore.unity.com/packages/audio/music/sci-fi-music-pack-1-105576)
 * Effect sounds
+  * [Monsters Sounds Pack](https://assetstore.unity.com/packages/audio/monsters-sounds-pack-45615)
+  * [Retro Noisy Attack Sound Pack Lite](https://assetstore.unity.com/packages/audio/sound-fx/retro-noisy-attack-sound-pack-lite-69423)
