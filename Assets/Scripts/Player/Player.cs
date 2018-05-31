@@ -18,12 +18,14 @@ public class Player : MonoBehaviour {
 
     public Image healthBar;
     public GameObject _healthCanvas;
+    public GameObject _gameMenu;
 
     float maxHealth = 100f;
     float currentHealth;
     float jumpVelocity;
     float gravity;
     float velocityXSmoothing;
+    bool inMenu = false;
 
     DeletePlayerPrefs _del;
     Vector3 velocity;
@@ -57,46 +59,59 @@ public class Player : MonoBehaviour {
         return gravity;
     }
 
-    private void Update()
+    public void setInMenu(bool inMenu)
     {
-        // If the player stands on something the velocity is not accumulated
-        if (_controller.collisions.above || _controller.collisions.bellow)
+        this.inMenu = inMenu;
+    }
+
+    private void Update()
+    {   
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            velocity.y = 0;
+            _gameMenu.SetActive(true);
+            inMenu = true;
         }
-
-        // Listen to the input of the keyboard
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        // If Space is pushed and the player stands on the ground, change the y component of the velocity
-        if (Input.GetKeyDown(KeyCode.Space) && _controller.collisions.bellow)
-        {
-            velocity.y = jumpVelocity;
-        }
-
-        // Calculate the Vector3 which will result in the change of position with the call to the method Move()
-        float targetVelocityX = input.x * movespeed;
-        // Smooth the acceleration of the player with two different variable, one if he is standing on the ground and one if he is in the air
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (_controller.collisions.bellow)?accelerationTimeGrounded:accelerationTimeAirborne);
-        // Update the velocity.y based on the player's gravity
-        velocity.y += gravity * Time.deltaTime;
-        _controller.Move(velocity * Time.deltaTime);
-
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
-        {
-            if (this.transform.position.x >= 764 && this.transform.position.x <= 765)
+            // If the player stands on something the velocity is not accumulated
+            if (_controller.collisions.above || _controller.collisions.bellow)
             {
-                this.transform.Translate(new Vector3(-883f, 0f));
+                velocity.y = 0;
             }
-            else if (this.transform.position.x <= -124 && this.transform.position.x >= -125)
-            {
-                this.transform.Translate(new Vector3(883f, 0f));
-            }
-        } else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+
+            Vector2 input = new Vector2(0,0);
+        // Listen to the input of the keyboard, bléock the inputs if in the menu
+        if (!inMenu)
         {
+            input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+            // If Space is pushed and the player stands on the ground, change the y component of the velocity
+            if (Input.GetKeyDown(KeyCode.Space) && _controller.collisions.bellow)
+            {
+                velocity.y = jumpVelocity;
+            }
         }
+            // Calculate the Vector3 which will result in the change of position with the call to the method Move()
+            float targetVelocityX = input.x * movespeed;
+            // Smooth the acceleration of the player with two different variable, one if he is standing on the ground and one if he is in the air
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (_controller.collisions.bellow) ? accelerationTimeGrounded : accelerationTimeAirborne);
+            // Update the velocity.y based on the player's gravity
+            velocity.y += gravity * Time.deltaTime;
+            _controller.Move(velocity * Time.deltaTime);
 
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
+            {
+                if (this.transform.position.x >= 764 && this.transform.position.x <= 765)
+                {
+                    this.transform.Translate(new Vector3(-883f, 0f));
+                }
+                else if (this.transform.position.x <= -124 && this.transform.position.x >= -125)
+                {
+                    this.transform.Translate(new Vector3(883f, 0f));
+                }
+            }
+            else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+            {
+
+            }
     }
 
     /**
