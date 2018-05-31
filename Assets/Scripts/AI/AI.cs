@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using StateMachine;
-using System;
 
 [RequireComponent(typeof(CanvasGroup), typeof(AIController2D))]
 
@@ -12,7 +9,7 @@ public class AI : MonoBehaviour{
 
     public float movespeed = 4;
     public float sightRange = 10;
-    public int damage = 50;
+    public int damage = 2;
     public float meleeRange = 5;
 
     public StateMachine<AI> stateMachine { get; set; }

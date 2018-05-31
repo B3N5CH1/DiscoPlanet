@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour {
     public Animator animator;
     public GameObject NewGameMenu;
     public GameObject LoadMenu;
+    public GameObject MainMenuCanvas;
 
     private DeletePlayerPrefs del;
     private int levelToLoad;
@@ -21,8 +22,22 @@ public class MainMenu : MonoBehaviour {
     {
         del = GetComponent<DeletePlayerPrefs>();
     }
-    // Go to levelSelection with previous progression
+
     public void PlayGame()
+    {
+        if (PlayerPrefs.GetInt("progressionStarted", 0) == 1)
+        {
+            MainMenuCanvas.SetActive(false);
+            LoadMenu.SetActive(true);
+        }
+        else
+        {
+            FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+
+    // Go to levelSelection with previous progression
+    public void ContinueGame()
     {
 
         FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
