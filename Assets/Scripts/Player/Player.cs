@@ -108,13 +108,11 @@ public class Player : MonoBehaviour
 
         float currX = this.transform.position.x;
         float currY = this.transform.position.y;
-
-
-
+        
         // To check which scene is active and change certain values accordingly. Also used to teleport the player properly
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
         {
-            // If the player ris in the map limit, he gets teleportad to the other end
+            // If the player is in the map limit, he gets teleportad to the other end
             if (currX >= l1Right && currX <= l1Right+1)
             {
                 this.transform.Translate(new Vector3(-883f, 0f));

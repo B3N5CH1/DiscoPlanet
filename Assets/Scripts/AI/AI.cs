@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using StateMachine;
 
 [RequireComponent(typeof(CanvasGroup), typeof(AIController2D))]
@@ -27,6 +28,14 @@ public class AI : MonoBehaviour
     SpriteRenderer _spriteR;
     AIController2D _controller;
     Vector3 velocity;
+
+
+    // The left and right limits of the maps
+    // Used to teleport the player to the other end to create the illusion of a round/looped map
+    private float l1Left = -124f;
+    private float l1Right = 764f;
+    private float l2Left = 29f;
+    private float l2Right = 532f;
 
     // Instanciate a few gameojbect
     void Awake()
@@ -104,6 +113,8 @@ public class AI : MonoBehaviour
         }
         velocity.x = dirX * movespeed;
 
+        tp();
+
     }
 
     /**
@@ -158,4 +169,39 @@ public class AI : MonoBehaviour
     {
         _audio.Play();
     }
+
+    /**
+     * This method is used, to teleport the slimey, if it's chasing the player and reaches the world border.
+     * If this happens, it gets teleported to the other side of the map, still being able to chase the player.
+     */
+    private void tp()
+    {
+        float currX = this.transform.position.x;
+
+        // To check which scene is active and change certain values accordingly. Also used to teleport the player properly
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
+        {
+            if (currX >= l1Right && currX <= l1Right + 1)
+            {
+                this.transform.Translate(new Vector3(-883f, 0f));
+            }
+            else if (currX <= l1Left + 1 && currX >= l1Left)
+            {
+                this.transform.Translate(new Vector3(883f, 0f));
+            }
+        }
+        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
+        {
+            if (currX >= l2Left && currX <= l2Left + 1)
+            {
+                this.transform.Translate(new Vector3(500f, 0f));
+            }
+            else if (currX >= l2Right && currX <= l2Right + 1)
+            {
+                this.transform.Translate(new Vector3(-500f, 0f));
+            }
+
+        }
+    }
+
 }
