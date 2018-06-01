@@ -21,3 +21,6 @@ This is a list of our sources.
 * [LevelBonus Sound 23.05.2018](https://www.youtube.com/watch?v=pVY1-v97Mic)
 * [Explosion 31.05.2018](http://soundbible.com/1807-Explosion-Ultra-Bass.html)
 * [Rocket 31.05.2018](http://soundbible.com/1498-Rocket.html)
+* [Level1 Sound 01.06.2018](https://www.youtube.com/watch?v=tHFVaZYF-ww)
+* [Level2 Sound 01.06.2018](https://www.youtube.com/watch?v=P7Ko7X_fhtU)
+* [End scene Sound 01.06.2018](https://www.youtube.com/watch?v=IV6L92DA8nU)
