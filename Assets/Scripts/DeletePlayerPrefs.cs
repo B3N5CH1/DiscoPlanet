@@ -17,6 +17,7 @@ public class DeletePlayerPrefs : MonoBehaviour {
     // Method that delete the game progression preferences (not the settings)
     public void DeleteAll()
     {
+        PlayerPrefs.DeleteKey("level1CheckPoint");
         PlayerPrefs.DeleteKey("level1Completed");
         PlayerPrefs.DeleteKey("level2Completed");
 		PlayerPrefs.DeleteKey("progressionStarted");

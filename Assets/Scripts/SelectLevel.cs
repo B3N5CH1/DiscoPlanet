@@ -22,7 +22,7 @@ public class SelectLevel : MonoBehaviour {
         PlayerPrefs.SetInt("progressionStarted", 1);
 
         // Get the state of the player's progression
-        int level1Completed = PlayerPrefs.GetInt("level1Completed", 0);
+        int level1Completed = PlayerPrefs.GetInt("level1CheckPoint", 0);
         int level2Completed = PlayerPrefs.GetInt("level2Completed", 0);
 
         // Check if level 1 has been completed, thus unlocking level 2

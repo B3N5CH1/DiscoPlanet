@@ -8,6 +8,7 @@ This is a list of our sources.
 * [StartSceneBG 23.05.2018](https://wallpaperscraft.com/download/space_cataclysm_planet_art_explosion_asteroids_comets_fragments_98315/1920x1080)
 * [LevelSelectionBG 23.05.2018](https://wallpaperscraft.com/download/space_sky_spiral_galaxy_99967/1920x1080)
 * [LevelBonusBG](https://www.jpl.nasa.gov/spaceimages/wallpaper.php?id=PIA18167)
+* [EndSceneBG](https://wallpaperscraft.com/download/space_stars_galaxy_85531/1680x1050)
 * [Grass/Sky 29.05.2018](https://www.shutterstock.com/image-vector/pixel-art-game-background-ground-grass-544265998)
 * [Chest 30.05.2018](http://lpc.opengameart.org/static/lpc-style-guide/_images/chest_perspective.png)
 * [Door 30.05.2018](http://pixeldungeon.wikia.com/wiki/File:Door.png)
