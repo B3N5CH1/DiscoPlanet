@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     float velocityXSmoothing;
     bool inMenu = false;
 
+    SpriteRenderer _spriteR;
     DeletePlayerPrefs _del;
     Vector3 velocity;
     Animator _animator;
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour
         _controller = GetComponent<Controller2D>();
         _animator = GetComponentInChildren<Animator>();
         _del = GetComponent<DeletePlayerPrefs>();
+        _spriteR = GetComponentInChildren<SpriteRenderer>();
 
         // Reset health on scene start
         maxHealth = 100f;
@@ -57,6 +59,8 @@ public class Player : MonoBehaviour
         gravity = -(2 * jumpHeight / Mathf.Pow(timeToJumpApex, 2));
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         print("Gravity " + gravity + " jumpVelocity " + jumpVelocity);
+
+        //_controller.showBubble("Shit! Looks like I'm stranded here. I've heard, I can use Light Gravitons as fuel, I need that.");
     }
 
     /**
@@ -99,6 +103,15 @@ public class Player : MonoBehaviour
         }
         // Calculate the Vector3 which will result in the change of position with the call to the method Move()
         float targetVelocityX = input.x * movespeed;
+        // flip the player sprite
+        if (input.x < 0.0f)
+        {
+            _spriteR.flipX = true;
+        }
+        else if (input.x > 0.0f)
+        {
+            _spriteR.flipX = false;
+        }
         // Smooth the acceleration of the player with two different variable, one if he is standing on the ground and one if he is in the air
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (_controller.collisions.bellow) ? accelerationTimeGrounded : accelerationTimeAirborne);
         // Update the velocity.y based on the player's gravity
