@@ -360,17 +360,19 @@ public class Controller2D : MonoBehaviour
                     }
                 }
                 break;
-            case "Teleporter":
-                inv.addItem("Shiny Rock");
+		case "Teleporter":
+			inv.addItem ("Shiny Rock");
                 if (Input.GetKey(KeyCode.E))
                 {
                     if (inv.checkItem("Shiny Rock") == 1)
                     {
+					print ("check passed");
                         showBubble("As it looks like, that shiny rock was the special gem, which is used for the teleporter.");
                         GameObject.Find("TPPanel (inactive)").SetActive(false);
                     }
                     else
                     {
+					print ("check failed");
                         showBubble("It seems not functional. There is a slot for a gem which seems important to focus the laser.");
                     }
 
