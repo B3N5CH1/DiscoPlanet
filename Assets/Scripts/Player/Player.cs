@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (_controller.collisions.bellow) ? accelerationTimeGrounded : accelerationTimeAirborne);
         // Update the velocity.y based on the player's gravity
         velocity.y += gravity * Time.deltaTime;
-        _controller.Move(velocity * Time.deltaTime);
+        _controller.Move(velocity * Time.deltaTime, _animator);
 
 
         float currX = this.transform.position.x;

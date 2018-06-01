@@ -216,7 +216,7 @@ public class Controller2D : MonoBehaviour
      * 
      * @param velocity the vector used to move the player
      */
-    public void Move(Vector3 velocity)
+    public void Move(Vector3 velocity, Animator animator)
     {
 
         UpdateRaycastOrigins();
@@ -226,6 +226,30 @@ public class Controller2D : MonoBehaviour
         if (velocity.x != 0) HorizontalCollision(ref velocity);
         if (velocity.y != 0) VerticalCollision(ref velocity);
 
+        if  ( velocity.x > -0.001 && velocity.x < 0.001)
+        {
+            animator.SetBool(Animator.StringToHash("Walks"), false);
+        }
+        else if (!collisions.bellow)
+        {
+            Debug.Log(velocity.y);
+            animator.SetBool(Animator.StringToHash("Walks"), false);
+            if (velocity.y > 0.001)
+            {
+                animator.SetBool(Animator.StringToHash("Jumps"), true);
+            }
+            else if (velocity.y < -0.001)
+            {
+                animator.SetBool(Animator.StringToHash("Jumps"), false);
+                animator.SetBool(Animator.StringToHash("Falls"), true);
+            }
+        }
+        else
+        {
+            animator.SetBool(Animator.StringToHash("Jumps"), false);
+            animator.SetBool(Animator.StringToHash("Falls"), false);
+            animator.SetBool(Animator.StringToHash("Walks"), true);
+        }
         transform.Translate(velocity);
     }
 

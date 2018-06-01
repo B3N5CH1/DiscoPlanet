@@ -8,6 +8,7 @@ This is a list of interesting assets found on the web, which might come in hand 
   * [2D Tilezone Lite](https://assetstore.unity.com/packages/tools/sprite-management/2d-tilezone-lite-69963)
   * [2D Game Kit](https://assetstore.unity.com/packages/essentials/tutorial-projects/2d-game-kit-107098)
 * Character / Enemies
+  * [FurBall 2D V1.2 mobile optimized](https://assetstore.unity.com/packages/2d/characters/furball-2d-v1-2-mobile-optimized-40588)
   * [2D Eddy](https://assetstore.unity.com/packages/2d/characters/2d-eddy-112501)
   * [Sunny Land](https://assetstore.unity.com/packages/2d/characters/sunny-land-103349)
   * [Free Pixel Mob](https://assetstore.unity.com/packages/2d/characters/free-pixel-mob-113577)
