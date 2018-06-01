@@ -73,14 +73,14 @@ public class DialogBubble : MonoBehaviour {
 				{
 					//create bubble
 					vBubbleObject = Instantiate(Resources.Load<GameObject> ("Customs/BubbleRectangle"));
-					vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(3f, 2.85f, 0f); //move a little bit the teleport particle effect
+					vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(3f, 2.85f, -0.2f); //move a little bit the teleport particle effect
 				}
 				else 
 				{
 					//create bubble
 					vBubbleObject = Instantiate(Resources.Load<GameObject> ("Customs/BubbleRound"));
-					vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(1.5f, 2.85f, 0f); //move a little bit the teleport particle effect
-				}
+					vBubbleObject.transform.position = vcharacter.transform.position + new Vector3(1.5f, 2.85f, -0.2f); //move a little bit the teleport particle effect
+                }
 
 				//show the mouse and wait for the user to left click OR NOT (if not, after 10 sec, it disappear)
 				vBubbleObject.GetComponent<Appear>().needtoclick = vBubble.vClickToCloseBubble;

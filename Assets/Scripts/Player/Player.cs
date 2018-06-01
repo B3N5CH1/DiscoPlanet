@@ -59,8 +59,6 @@ public class Player : MonoBehaviour
         gravity = -(2 * jumpHeight / Mathf.Pow(timeToJumpApex, 2));
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         print("Gravity " + gravity + " jumpVelocity " + jumpVelocity);
-
-        //_controller.showBubble("Shit! Looks like I'm stranded here. I've heard, I can use Light Gravitons as fuel, I need that.");
     }
 
     /**

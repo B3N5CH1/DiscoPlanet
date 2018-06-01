@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 [RequireComponent(typeof(BoxCollider2D))]
 
@@ -11,7 +13,7 @@ public class Controller2D : MonoBehaviour
 
     public LayerMask collisionMask, collisionMaskCollectable;
 
-    private int[,] checks = new int[2, 6] { { 1, 2, 3, 4, 5, 6 }, { 0, 0, 0, 0, 0, 0 } };
+    private int[,] checks = new int[2, 5] { { 1, 2, 3, 4, 5 }, { 0, 0, 0, 0, 0 } };
 
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
@@ -243,7 +245,7 @@ public class Controller2D : MonoBehaviour
         if (velocity.x != 0) HorizontalCollision(ref velocity);
         if (velocity.y != 0) VerticalCollision(ref velocity);
 
-        if  ( velocity.x > -0.001 && velocity.x < 0.001 && !isJumping && !isFalling)
+        if (velocity.x > -0.001 && velocity.x < 0.001 && !isJumping && !isFalling)
         {
             animator.SetBool(Animator.StringToHash("Walks"), false);
         }
@@ -251,7 +253,7 @@ public class Controller2D : MonoBehaviour
         {
             animator.SetBool(Animator.StringToHash("Jumps"), true);
         }
-        else if(isFalling)
+        else if (isFalling)
         {
             animator.SetBool(Animator.StringToHash("Walks"), false);
             animator.SetBool(Animator.StringToHash("Jumps"), false);
@@ -336,22 +338,21 @@ public class Controller2D : MonoBehaviour
                 {
                     if (inv.addItem(item))
                     {
-                        showBubble("That looks like a nice shiny rock! It looks valuable, I'll take that");
-                        GameObject.Find("Shiny Rock").SetActive(false);
+                        showTextBubble("That looks like a nice shiny rock! It looks valuable, I'll take that.");
+                        GameObject.Find(item).SetActive(false);
                         checks[1, 0] = 1;
                     }
                 }
                 break;
             case "Chest":
-                showBubble("Oooh, a chest! What glorious treasures could be inside?!");
                 if (Input.GetKey(KeyCode.E))
                 {
-                        if (inv.addItem(item))
-                        {
-                            GameObject.Find("Chest").SetActive(false);
-                            showBubble("I found a key, great... Well at least, it should unlock a door somewhere.");
-                            checks[1, 1] = 1;
-                        }
+                    if (inv.addItem(item))
+                    {
+                        GameObject.Find("Chest").SetActive(false);
+                        showTextBubble("Of all the possible treasures, I found a key... Well at least it should unlock something somewhere.");
+                        checks[1, 1] = 1;
+                    }
                 }
                 break;
             case "Door":
@@ -359,43 +360,65 @@ public class Controller2D : MonoBehaviour
                 {
                     if (checks[1, 1] == 1)
                     {
-                        showBubble("Lucky me - the key I found was for this door.");
+                        showTextBubble("Lucky me - the key I found was for this door.");
                         GameObject.Find("Door").SetActive(false);
                         GameObject.Find("1-1f").SetActive(false);
                     }
                     else
                     {
-                        showBubble("This door seems locked. Maybe there is a key somewhere?");
+                        showTextBubble("This door seems locked. Maybe there is a key somewhere?");
                     }
                 }
                 break;
             case "Light Graviton Collector":
-                showBubble("This looks like a Light Graviton Collector!");
+                showTextBubble("This looks like a Light Graviton Collector!");
                 if (Input.GetKey(KeyCode.E))
                 {
-                        if (inv.addItem(item))
-                        {
-                            showBubble("Thanks for that! Now I have to find a place, where I can collect some.");
-                            GameObject.Find("Light Graviton Collector").GetComponent<LGC>().activateSlime();
-                            GameObject.Find("Light Graviton Collector").SetActive(false);
-                            checks[1, 2] = 1;
-                        }
+                    if (inv.addItem(item))
+                    {
+                        showTextBubble("Thanks for that! Now I have to find a place, where I can collect some.");
+                        GameObject.Find("Light Graviton Collector").GetComponent<SlimeSpawner>().activateSlime();
+                        GameObject.Find("Light Graviton Collector").SetActive(false);
+                        checks[1, 2] = 1;
+                    }
                 }
                 break;
             case "Teleporter":
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if (checks[1, 0] == 1)
+                    if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
                     {
-                        showBubble("As it looks like, that shiny rock was the special gem, which is used for the teleporter.");
-                        GameObject.Find("TPPanel (inactive)").SetActive(false);
-                        checks[1, 3] = 1;
+                        inv.addItem("Shiny Rock");
+                        checks[1, 0] = 1;
+                        if (checks[1, 0] == 1)
+                        {
+                            showTextBubble("As it looks like, that shiny rock was the special gem, which is used for the teleporter.");
+                            if (GameObject.Find("TPPanel (inactive)"))
+                                GameObject.Find("TPPanel (inactive)").SetActive(false);
+                            SceneManager.UnloadSceneAsync("Level1");
+                            SceneManager.LoadScene("Level2");
+                        }
+                        else
+                        {
+                            showTextBubble("It seems not functional. There is a slot for a gem which seems important to focus the laser.");
+                        }
                     }
-                    else
+                    else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level2"))
                     {
-                        showBubble("It seems not functional. There is a slot for a gem which seems important to focus the laser.");
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            if (checks[1, 3] == 0)
+                            {
+                                showTextBubble("Without any Light Gravitons it makes no sense to try to go back. I need them first");
+                            }
+                            else
+                            {
+                                SceneManager.UnloadSceneAsync("Level2");
+                                SceneManager.LoadScene("Level1");
+                                GameObject.Find("Player").transform.Translate(new Vector3(288.5f, -74.7f));
+                            }
+                        }
                     }
-
                 }
                 break;
             case "Light Gravitons":
@@ -405,6 +428,9 @@ public class Controller2D : MonoBehaviour
                     {
                         if (inv.addItem(item))
                         {
+                            showTextBubble("Perfect, that's exactly what I need, now I can go ba - wait, do I smell Ice Cream?!");
+                            GameObject.Find("Light Gravitons").GetComponent<IceCreamSpawner>().activateIceCream();
+                            GameObject.Find("Light Gravitons").SetActive(false);
                             checks[1, 3] = 1;
                         }
                     }
@@ -415,6 +441,9 @@ public class Controller2D : MonoBehaviour
                 {
                     if (inv.addItem(item))
                     {
+                        showTextBubble("Why would there be Ice Cream here? Anyway, that's mine now");
+                        GameObject.Find("Ice Cream").GetComponent<SlimeSpawner>().activateSlime();
+                        GameObject.Find("Ice Cream").SetActive(false);
                         checks[1, 4] = 1;
                     }
                 }
@@ -426,9 +455,9 @@ public class Controller2D : MonoBehaviour
         }
     }
 
-    public void showBubble(string msg)
+    public void showTextBubble(string msg)
     {
-        DialogBubble dialogBubble = GameObject.FindGameObjectWithTag("Player").GetComponent<DialogBubble>();
+        DialogBubble dialogBubble = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<DialogBubble>();
 
         AssemblyCSharp.PixelBubble message = new AssemblyCSharp.PixelBubble();
         message.vMessage = msg;
@@ -440,9 +469,6 @@ public class Controller2D : MonoBehaviour
         dialogBubble.vBubble.Clear();
 
     }
-
-
-
 
 
 }
