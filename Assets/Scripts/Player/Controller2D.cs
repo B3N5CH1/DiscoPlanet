@@ -23,6 +23,8 @@ public class Controller2D : MonoBehaviour
     float horizontalRaySpacing;
     float verticalRaySpacing;
 
+    bool isJumping;
+    bool isFalling;
     BoxCollider2D collider;
     RaycastOrigins raycastOrigins;
     public CollisionInfo collisions;
@@ -70,8 +72,23 @@ public class Controller2D : MonoBehaviour
 
                 collisions.bellow = directionY == -1;
                 collisions.above = directionY == 1;
+                isFalling = false;
             }
-
+            if (collisions.bellow == false && directionY == 1)
+            {
+                isJumping = true;
+                isFalling = false;
+            }
+            else if (collisions.bellow == false && directionY == -1)
+            {
+                isJumping = false;
+                isFalling = true;
+            }
+            else
+            {
+                isJumping = false;
+                isFalling = false;
+            }
             // Collision with checkpoint mask
 
             RaycastHit2D hitColl = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMaskCollectable);
@@ -226,28 +243,26 @@ public class Controller2D : MonoBehaviour
         if (velocity.x != 0) HorizontalCollision(ref velocity);
         if (velocity.y != 0) VerticalCollision(ref velocity);
 
-        if  ( velocity.x > -0.001 && velocity.x < 0.001)
+        if  ( velocity.x > -0.001 && velocity.x < 0.001 && !isJumping && !isFalling)
         {
             animator.SetBool(Animator.StringToHash("Walks"), false);
         }
-        else if (!collisions.bellow)
+        else if (isJumping)
         {
-            Debug.Log(velocity.y);
+            animator.SetBool(Animator.StringToHash("Jumps"), true);
+        }
+        else if(isFalling)
+        {
             animator.SetBool(Animator.StringToHash("Walks"), false);
-            if (velocity.y > 0.001)
-            {
-                animator.SetBool(Animator.StringToHash("Jumps"), true);
-            }
-            else if (velocity.y < -0.001)
-            {
-                animator.SetBool(Animator.StringToHash("Jumps"), false);
-                animator.SetBool(Animator.StringToHash("Falls"), true);
-            }
+            animator.SetBool(Animator.StringToHash("Jumps"), false);
+            animator.SetBool(Animator.StringToHash("Idle"), false);
+            animator.SetBool(Animator.StringToHash("Falls"), true);
         }
         else
         {
             animator.SetBool(Animator.StringToHash("Jumps"), false);
             animator.SetBool(Animator.StringToHash("Falls"), false);
+            animator.SetBool(Animator.StringToHash("Idle"), false);
             animator.SetBool(Animator.StringToHash("Walks"), true);
         }
         transform.Translate(velocity);
