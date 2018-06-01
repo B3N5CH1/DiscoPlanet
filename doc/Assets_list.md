@@ -26,6 +26,7 @@ This is a list of interesting assets found on the web, which might come in hand 
   * [Dynamic Space Backround](https://assetstore.unity.com/packages/2d/textures-materials/dynamic-space-background-lite-104606)
   * [Milky Way](https://assetstore.unity.com/packages/2d/textures-materials/milky-way-skybox-94001)
 * Other
+  * [Robot Shooting Game Sprite](https://assetstore.unity.com/packages/2d/environments/robot-shooting-game-sprite-free-93902)
   * [Text Mesh](https://assetstore.unity.com/packages/essentials/beta-projects/textmesh-pro-84126)
   * [Color Blind](https://assetstore.unity.com/packages/vfx/shaders/fullscreen-camera-effects/colorblind-effect-76360)
 
