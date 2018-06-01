@@ -3,22 +3,17 @@
 
 public class Inventory {
 
-	public void addItem(string name) {
+	public bool addItem(string name) {
 		if (checkItem(name) == 0) {
 			PlayerPrefs.SetInt (name, 1);
+            return true;
 		} else {
-
+            return false;
 		}
 	}
 
 	public int checkItem(string name) {
 		return PlayerPrefs.GetInt (name, 0);
-	}
-
-	public bool dialog(string name) {
-        addItem(name);
-
-		return true;
 	}
 
 }

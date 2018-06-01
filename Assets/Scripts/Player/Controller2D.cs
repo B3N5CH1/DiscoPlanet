@@ -11,7 +11,7 @@ public class Controller2D : MonoBehaviour
 
     public LayerMask collisionMask, collisionMaskCollectable;
 
-    private int[,] checks = new int[2, 5] { { 1, 2, 3, 4, 5 }, { 0, 0, 0, 0, 0 } };
+    private int[,] checks = new int[2, 6] { { 1, 2, 3, 4, 5, 6 }, { 0, 0, 0, 0, 0, 0 } };
 
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
@@ -295,44 +295,32 @@ public class Controller2D : MonoBehaviour
             case "Shiny Rock":
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if (checks[1, 0] == 0)
+                    if (inv.addItem(item))
                     {
-                        print("[1, 0] == 0");
-                        if (inv.dialog(item))
-                        {
-                            print(item + " should have been added");
-                            GameObject.Find("Shiny Rock").SetActive(false);
-
-
-                            checks[1, 0] = 1;
-                        }
+                        showBubble("That looks like a nice shiny rock! It looks valuable, I'll take that");
+                        GameObject.Find("Shiny Rock").SetActive(false);
+                        checks[1, 0] = 1;
                     }
                 }
                 break;
             case "Chest":
+                showBubble("Oooh, a chest! What glorious treasures could be inside?!");
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if (checks[1, 1] == 0)
-                    {
-                        if (inv.dialog(item))
+                        if (inv.addItem(item))
                         {
-                            print(item + " should have been added");
                             GameObject.Find("Chest").SetActive(false);
-
-                            showBubble("I found a key! That should unlock a door somewhere.");
-
+                            showBubble("I found a key, great... Well at least, it should unlock a door somewhere.");
                             checks[1, 1] = 1;
                         }
-                    }
                 }
                 break;
             case "Door":
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if (inv.checkItem("Chest") == 1)
+                    if (checks[1, 1] == 1)
                     {
-                        showBubble("Lucky me - that was the right key.");
-
+                        showBubble("Lucky me - the key I found was for this door.");
                         GameObject.Find("Door").SetActive(false);
                         GameObject.Find("1-1f").SetActive(false);
                     }
@@ -343,36 +331,29 @@ public class Controller2D : MonoBehaviour
                 }
                 break;
             case "Light Graviton Collector":
+                showBubble("This looks like a Light Graviton Collector!");
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if (checks[1, 2] == 0)
-                    {
-                        if (inv.dialog(item))
+                        if (inv.addItem(item))
                         {
-                            print(item + " should have been added");
+                            showBubble("Thanks for that! Now I have to find a place, where I can collect some.");
                             GameObject.Find("Light Graviton Collector").GetComponent<LGC>().activateSlime();
                             GameObject.Find("Light Graviton Collector").SetActive(false);
-                            //(new LGC ()).activateSlime ();
-                            //GameObject.Find ("LGCSlime").SetActive (true);
-
                             checks[1, 2] = 1;
                         }
-                    }
                 }
                 break;
-		case "Teleporter":
-			inv.addItem ("Shiny Rock");
+            case "Teleporter":
                 if (Input.GetKey(KeyCode.E))
                 {
-                    if (inv.checkItem("Shiny Rock") == 1)
+                    if (checks[1, 0] == 1)
                     {
-					print ("check passed");
                         showBubble("As it looks like, that shiny rock was the special gem, which is used for the teleporter.");
                         GameObject.Find("TPPanel (inactive)").SetActive(false);
+                        checks[1, 3] = 1;
                     }
                     else
                     {
-					print ("check failed");
                         showBubble("It seems not functional. There is a slot for a gem which seems important to focus the laser.");
                     }
 
@@ -383,7 +364,7 @@ public class Controller2D : MonoBehaviour
                 {
                     if (checks[1, 3] == 0)
                     {
-                        if (inv.dialog(item))
+                        if (inv.addItem(item))
                         {
                             checks[1, 3] = 1;
                         }
@@ -393,7 +374,7 @@ public class Controller2D : MonoBehaviour
             case "Ice Cream":
                 if (checks[1, 4] == 0)
                 {
-                    if (inv.dialog(item))
+                    if (inv.addItem(item))
                     {
                         checks[1, 4] = 1;
                     }
@@ -406,7 +387,7 @@ public class Controller2D : MonoBehaviour
         }
     }
 
-    private void showBubble(string msg)
+    public void showBubble(string msg)
     {
         DialogBubble dialogBubble = GameObject.FindGameObjectWithTag("Player").GetComponent<DialogBubble>();
 
