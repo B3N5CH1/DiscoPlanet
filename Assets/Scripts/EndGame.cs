@@ -7,8 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class EndGame : MonoBehaviour {
 
+    public  AudioSource _audioR;
+    public AudioSource _audioE;
+
+  
+    // Play the audio attached to this gameobject
+    void PlaySoundRocket()
+    {
+        _audioR.Play();
+    }
+
+    void PlaySoundExplosion()
+    {
+        _audioE.Play();
+    }
+
     // Go to the end scene
-	public void GoToEndScene()
+    public void GoToEndScene()
     {
         SceneManager.LoadScene(6);
     }
