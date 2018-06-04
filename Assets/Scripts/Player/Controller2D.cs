@@ -449,6 +449,20 @@ public class Controller2D : MonoBehaviour
                 }
                 break;
 
+            case "Rocket":
+                if (Input.GetKey(KeyCode.E))
+                {
+                   
+                    if (checks[1, 3] == 1)
+                    {
+                        Debug.Log("Clicked on rocket!");
+                        GameObject.Find("Player").SetActive(false);
+                        GameObject.Find("Rocket").GetComponent<Animator>().SetTrigger("RocketLiftOff");
+                    }
+                    
+                }
+                break;
+
 
             default:
                 break;
