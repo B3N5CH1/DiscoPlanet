@@ -11,4 +11,4 @@ git clone https://github.com/B3N5CH1/DiscoPlanet.git
 
 Then you should be able to open the project directly in Unity3D. Make sure you select the DiscoPlanet folder.
 
-If you want to directly play the game, download the _Win_Build_Version/Standard folder and launch the DiscoPlanet.exe.
+If you want to play a build version download it here : https://www.dropbox.com/s/89ke4e3h7on541r/Release_DiscoPlanet.zip?dl=0
