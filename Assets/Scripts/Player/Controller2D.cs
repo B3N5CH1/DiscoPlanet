@@ -388,11 +388,13 @@ public class Controller2D : MonoBehaviour
                 {
                     if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Level1"))
                     {
-                        inv.addItem("Shiny Rock");
-                        checks[1, 0] = 1;
+                        //inv.addItem("Shiny Rock");
+                        //checks[1, 0] = 1;
                         if (checks[1, 0] == 1)
                         {
+
                             showTextBubble("As it looks like, that shiny rock was the special gem, which is used for the teleporter.");
+                            PlayerPrefs.SetInt("level1Completed", 1);
                             if (GameObject.Find("TPPanel (inactive)"))
                                 GameObject.Find("TPPanel (inactive)").SetActive(false);
                             SceneManager.UnloadSceneAsync("Level1");
@@ -413,6 +415,7 @@ public class Controller2D : MonoBehaviour
                             }
                             else
                             {
+                                PlayerPrefs.SetInt("level2Completed", 1);
                                 SceneManager.UnloadSceneAsync("Level2");
                                 SceneManager.LoadScene("Level1");
                                 GameObject.Find("Player").transform.Translate(new Vector3(288.5f, -74.7f));
@@ -452,7 +455,8 @@ public class Controller2D : MonoBehaviour
             case "Rocket":
                 if (Input.GetKey(KeyCode.E))
                 {
-                   
+                    //inv.addItem("Light Gravitons");
+                    //checks[1, 3] = 1;
                     if (checks[1, 3] == 1)
                     {
                         Debug.Log("Clicked on rocket!");
