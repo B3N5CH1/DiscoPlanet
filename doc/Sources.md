@@ -24,3 +24,8 @@ This is a list of our sources.
 * [Level1 Sound 01.06.2018](https://www.youtube.com/watch?v=tHFVaZYF-ww)
 * [Level2 Sound 01.06.2018](https://www.youtube.com/watch?v=P7Ko7X_fhtU)
 * [End scene Sound 01.06.2018](https://www.youtube.com/watch?v=IV6L92DA8nU)
+
+## Tutorials and helps ##
+
+* [Unity3D 2D Game Kit](https://unity3d.com/learn/tutorials/s/2d-game-kit)
+* [Youtube chanel Brackeys](https://www.youtube.com/user/Brackeys)
