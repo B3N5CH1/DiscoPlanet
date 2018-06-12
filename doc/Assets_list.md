@@ -1,4 +1,4 @@
-# Assets for noobs #
+# Assets for pros #
 
 This is a list of interesting assets found on the web, which might come in hand later on.
 

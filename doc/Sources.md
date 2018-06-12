@@ -1,4 +1,4 @@
-# Sources for noobs #
+# Sources for pros #
 
 This is a list of our sources.
 

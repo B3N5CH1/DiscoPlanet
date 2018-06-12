@@ -21,6 +21,7 @@ public class DeletePlayerPrefs : MonoBehaviour {
         PlayerPrefs.DeleteKey("level1Completed");
         PlayerPrefs.DeleteKey("level2Completed");
 		PlayerPrefs.DeleteKey("progressionStarted");
+        PlayerPrefs.DeleteKey("firstTimeLvl1");
 
 		PlayerPrefs.DeleteKey ("Shiny Rock");
 		PlayerPrefs.DeleteKey ("Chest");
