@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
 
         if(SceneManager.GetActiveScene().buildIndex == 3)
         {
-            if (PlayerPrefs.GetInt("firstTimeLvl1") == 0)
+            if (PlayerPrefs.GetInt("firstTimeLvl1", 0) == 0)
             {
                 _controller.showTextBubble("Oh no my spaceship crashed onto this weird looking planet ! I have to look for some items or ressources to try and repair it.");
                 PlayerPrefs.SetInt("firstTimeLvl1", 1);
