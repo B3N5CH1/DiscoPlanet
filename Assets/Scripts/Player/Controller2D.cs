@@ -422,7 +422,7 @@ public class Controller2D : MonoBehaviour
                                 PlayerPrefs.SetInt("level2Completed", 1);
                                 SceneManager.UnloadSceneAsync("Level2");
                                 SceneManager.LoadScene("Level1");
-                                GameObject.Find("Player").transform.Translate(new Vector3(288.5f, -74.7f));
+                                //GameObject.Find("Player").transform.Translate(new Vector3(288.5f, -74.7f));
                             }
                         }
                     }
@@ -461,7 +461,7 @@ public class Controller2D : MonoBehaviour
                 {
                     //inv.addItem("Light Gravitons");
                     //checks[1, 3] = 1;
-                    if (checks[1, 3] == 1)
+                    if (PlayerPrefs.GetInt("level2Completed", 0)==1)
                     {
                         Debug.Log("Clicked on rocket!");
                         GameObject.Find("Player").SetActive(false);
