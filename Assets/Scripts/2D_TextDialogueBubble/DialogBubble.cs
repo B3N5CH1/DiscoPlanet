@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/**
+*   See Assets -> 2D Dialog Bubble
+**/
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using AssemblyCSharp;

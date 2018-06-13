@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: SetSliders.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the sliders in the main menu scene.
+*   
+**/
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-
-/*
- * This script handle the behaviour of sliders in the main menu scene.
- */
 
 public class SetSliders : MonoBehaviour {
 

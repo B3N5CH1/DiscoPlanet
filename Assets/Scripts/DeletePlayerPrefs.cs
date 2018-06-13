@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿/**
+*   Filename: DeletePlayerPrefs.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This class handles the removal of the PlayerPrefs, which are used as our data storage.
+*   
+**/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-/*
- * This class handle the removale of the player preferences, which are used as our data storage.
- */
 
 public class DeletePlayerPrefs : MonoBehaviour {
 

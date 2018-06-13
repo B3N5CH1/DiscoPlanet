@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: ChaseState.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the chase state of the enemies.
+*   
+**/
+using UnityEngine;
 using StateMachine;
-
-/*
- * This script handle the Chase state.
- */
 
 public class ChaseState : State<AI>
 {

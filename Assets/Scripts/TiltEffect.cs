@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: TiltEffect.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script creates a small animation to a text.
+*       It reseizes it, using two border values, making it look like it's tilting.
+*   
+**/
+using UnityEngine;
 using TMPro;
-
-/*
- * This script create a small animation to a text.
- * It resize it using two border values, making look like it's tilting.
- */
 
 public class TiltEffect : MonoBehaviour {
 

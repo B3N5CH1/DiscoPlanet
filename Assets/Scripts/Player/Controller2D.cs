@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: Controller2D.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script controls the behaviour of the player.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 [RequireComponent(typeof(BoxCollider2D))]
-
-/*
- * This script handle controlls the behaviour of the player.
- */
 
 public class Controller2D : MonoBehaviour
 {

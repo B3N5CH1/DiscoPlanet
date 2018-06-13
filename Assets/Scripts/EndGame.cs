@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: EndGame.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles what happens after the spaceship animation ends.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
-
-/*
- * This script handle what happens after the spachips animation ends.
- */
 
 public class EndGame : MonoBehaviour {
 

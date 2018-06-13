@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: GameMenu.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the game menu scene.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
-
-/*
- * This script handle the behaviour of the Main menu scene.
- */
 
 public class GameMenu : MonoBehaviour {
 

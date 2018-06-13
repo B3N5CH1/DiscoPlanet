@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: AI.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This class handles the behaviour of the AI.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using StateMachine;
 
 [RequireComponent(typeof(CanvasGroup), typeof(AIController2D))]
-
-/*
- * This script handle the behaviour of the AI.
- */
 
 public class AI : MonoBehaviour
 {

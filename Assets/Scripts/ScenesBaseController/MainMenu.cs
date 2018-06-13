@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: MainMenu.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the main menu scene.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
-
-/*
- * This script handle the behaviour of the Main menu scene.
- */
 
 [RequireComponent(typeof(DeletePlayerPrefs))]
 

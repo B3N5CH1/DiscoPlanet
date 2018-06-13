@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: IdleState.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the idle state of the enemies.
+*   
+**/
+using UnityEngine;
 using StateMachine;
-
-/*
- * This script handle the Idle state.
- */
 
 public class IdleState : State<AI>
 {

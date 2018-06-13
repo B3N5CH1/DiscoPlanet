@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: SelectLevel.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the level selection scene.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-/*
- * This script handle the behaviour of the level selection scene.
- */
 
 public class SelectLevel : MonoBehaviour {
 

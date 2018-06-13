@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: AttackState.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the Attack State of the enemy.
+*   
+**/
+using UnityEngine;
 using StateMachine;
-
-/*
- * This script handle the Attack state.
- */
 
 public class AttackState : State<AI>
 {

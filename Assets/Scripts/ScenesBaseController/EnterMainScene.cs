@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: EnterMainScene.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the Start scene.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
-
-/*
- * This script handle the behaviour of the Start scene.
- */
 
 public class EnterMainScene : MonoBehaviour {
 

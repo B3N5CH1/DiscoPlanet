@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: SettingsMenu.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the settings menu in the main menu scene.
+*   
+**/
+using UnityEngine;
 using UnityEngine.Audio;
-
-/*
- * This script handle the behaviour of the settings menu in the maine menu scene.
- */
 
 public class SettingsMenu : MonoBehaviour {
 

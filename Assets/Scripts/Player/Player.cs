@@ -1,12 +1,17 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: Player.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the player.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Controller2D), typeof(DeletePlayerPrefs))]
 
-/*
- * This script handle the behaviour of the player.
- */
 
 public class Player : MonoBehaviour
 {

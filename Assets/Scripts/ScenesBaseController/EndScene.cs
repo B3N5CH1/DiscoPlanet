@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: EndScene.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the end scene.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(DeletePlayerPrefs))]
-
-/*
- * This script handle the behaviour of the end scene.
- */
 
 public class EndScene : MonoBehaviour {
 

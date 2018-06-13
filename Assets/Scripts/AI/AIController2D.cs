@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: AIController2D.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script controls the behaviour of the AI
+*   
+**/
+using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-
-/*
- * This script handle controlls the behaviour of the AI.
- */
-
 
 public class AIController2D : MonoBehaviour
 {

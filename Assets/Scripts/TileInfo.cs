@@ -1,3 +1,6 @@
+/**
+*   See Assets -> 2D Tilezone Lite
+**/
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;

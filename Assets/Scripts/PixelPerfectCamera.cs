@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/**
+*   See Assets -> 2D Tilezone Lite
+**/
+using UnityEngine;
 using System.Collections;
 
 [AddComponentMenu("2D/Pixel Perfect Camera")]

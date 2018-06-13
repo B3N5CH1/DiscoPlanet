@@ -1,9 +1,13 @@
-﻿
-/*
- * This script create a namespace so we can acces it's content easier in other scripts.
- * It creates the State Machine, which is responsible for handling our AI states.
- * And create the abstract class State. 
- */
+﻿/**
+*   Filename: StateMachine.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script creates a namespace so we can acces its content easier in other scripts.
+*       It creates the State Machine, which is responsible for handling our AI states.
+*       And creates the abstract class State. 
+*   
+**/
 
 namespace StateMachine
 {

@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿/**
+*   Filename: LevelBonus.cs
+*   Author: Flückiger, Graf
+*   
+*   Description:
+*       This script handles the behaviour of the bonus level.
+*   
+**/
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(DeletePlayerPrefs))]
-
-/*
- * This script handle the behaviour of the Bonus level.
- */
 
 public class LevelBonus : MonoBehaviour {
 
