@@ -437,6 +437,7 @@ public class Controller2D : MonoBehaviour
                         {
                             showTextBubble("Perfect, that's exactly what I need, now I can go ba - wait, do I smell Ice Cream?!");
                             GameObject.Find("Light Gravitons").GetComponent<SlimeSpawner>().activateSlime();
+                            GameObject.Find("Light Gravitons").GetComponent<IceCreamSpawner>().activateIceCream();
                             GameObject.Find("Light Gravitons").SetActive(false);
                             checks[1, 3] = 1;
                         }

@@ -9,8 +9,7 @@
 using UnityEngine;
 
 
-public class IceCreamSpawner : MonoBehaviour
-{
+public class IceCreamSpawner : MonoBehaviour {
 
     public GameObject _IceCream;
 
